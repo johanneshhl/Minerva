@@ -18,7 +18,7 @@ from application import app, request, redirect, escape, session, url_for, db, bc
 
 from bs4 import BeautifulSoup
 from colour import Color
-import StringIO
+
 
 
 
