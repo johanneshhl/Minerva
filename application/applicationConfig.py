@@ -32,8 +32,9 @@ SECRET_KEY = u'\x89\x15\xbe\x8c\x93\xf0k\xee\x91\xe0\xae\xba\xb3?\xdc\xa9\xe1ns8
 
 #set up localhost usage
 if not os.environ.has_key('DATABASE_URL'):
-    os.environ['DATABASE_URL'] = 'sqlite:///../test.db'
-
+    #os.environ['DATABASE_URL'] = 'sqlite:///../test.db'
+	os.environ['DATABASE_URL'] = 'postgres://localhost:5432'
+	
 SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 
 

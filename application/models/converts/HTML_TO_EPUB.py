@@ -12,6 +12,7 @@
 		 Date:	29. Maj 2015
 
 '''
+from application import app, request, redirect, escape, session, url_for, db, bcrypt, render_template, g, flash, jsonify
 import zipfile
 import StringIO
 import uuid
@@ -26,7 +27,7 @@ from bs4 import BeautifulSoup
 
 class HTML_TO_EPUB(object):
 	"""docstring for HTML_TO_EPUB"""
-	
+
 	def __init__(self, DATA_HTML, METADATA):
 
 		self.DATA_HTML = BeautifulSoup(DATA_HTML, from_encoding="utf-8")
@@ -46,7 +47,7 @@ class HTML_TO_EPUB(object):
 	def getChapters(self):
 		html = []
 
-		if self.DATA_HTML.find_all("h1") == None:
+		if len(self.DATA_HTML.find_all("h1")) < 1:
 			html = ['chapter001','No title', unicode(self.DATA_HTML)]
 		else:
 			x = 0
@@ -70,6 +71,7 @@ class HTML_TO_EPUB(object):
 
 
 				html.append([chapterString, chapterTitle, node])
+
 		return html
 
 
@@ -108,8 +110,8 @@ class HTML_TO_EPUB(object):
 		spineItems = u''
 
 		chapters = self.getChapters()
-		for chapter in chapters:
 
+		for chapter in chapters:
 			manifestItems += '<item href="{0}.html" id="{0}" media-type="application/xhtml+xml"/>'.format(chapter[0])
 			spineItems += '<itemref idref="{0}"/>'.format(chapter[0])
 

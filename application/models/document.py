@@ -10,6 +10,7 @@ import datetime
 
 from application.models.converts.DOCX_TO_HTML import DATA_HTML
 from application.models.converts.HTML_TO_EPUB import HTML_TO_EPUB
+import zipfile
 
 from application import app, request, redirect, escape, session, url_for, db, bcrypt, render_template, g, flash, jsonify
 from application.controlers.document import *
@@ -144,8 +145,8 @@ def update_document_from_dict(fileId, metadataDict, file):
 		if 'documentEducation_level' in metadataDict:
 			orgDocument.education_level = u''+str(metadataDict['documentEducation_level'])
 		
-		#app.logger.info(file)
-		if file != None:
+		app.logger.info(file)
+		if (file != None) and (zipfile.is_zipfile(file.read())):
 			fileBlob = BytesIO(file.read())
 			orgDocument.original_file = fileBlob.getvalue()
 
@@ -172,13 +173,15 @@ def create_epub_from_id(fileId):
 		authorName = author.firstname + ' ' + author.lastname
 		
 		fileBlob = BytesIO(orgDocument.original_file)
+		
 		Data = DATA_HTML(fileBlob, '')
 
 		meta = dict(title=orgDocument.name, subject=orgDocument.subject, category=orgDocument.topic, description=orgDocument.description, lang='da', creator=authorName)
+		app.logger.info(Data.documentContent)
 
 		newEpub = HTML_TO_EPUB(Data.documentContent, meta)
 
-		addEpub = Product(orgDocument.id, 'epub', newEpub.createEpub())
+		addEpub = Product(orgDocument.id, 'epub', )
 		
 		db.session.add(addEpub)
 		db.session.commit()
@@ -227,10 +230,10 @@ def create_HTML_from_id(fileId):
 		Data = DATA_HTML(fileBlob, '')
 
 		HTML_text = Data.documentContent
-		
-		addHTML = Product(orgDocument.id, 'html', HTML_text)
+	
+		addHTML = Product(orgDocument.id, 'html', HTML_text.encode())
 		addHTML.version = int(orgDocument.version)
-
+#
 		db.session.add(addHTML)
 		db.session.commit()
 
@@ -248,7 +251,7 @@ def create_HTML_from_id(fileId):
 			HTML_text = Data.documentContent
 
 			HTML.version = int(orgDocument.version)
-			HTML.file_blob = HTML_text
+			HTML.file_blob = HTML_text.encode()
 			HTML.created = datetime.datetime.now()
 
 			db.session.commit()
@@ -334,7 +337,6 @@ def update_or_create_Statistic(productId, download_or_display):
 		db.session.commit()
 
 	return True
-
 
 
 

@@ -60,7 +60,6 @@ class Document(db.Model):
 
 	original_file = db.Column(db.LargeBinary, nullable=False)
 
-	document_statistic = db.relationship('Statistic', backref='document', lazy='dynamic')
 	document_products = db.relationship('Product', backref='document', lazy='dynamic')
 
 
@@ -101,6 +100,9 @@ class Product(db.Model):
 
 	file_blob = db.Column(db.LargeBinary, nullable=False)
 
+	document_statistic = db.relationship('Statistic', backref='product', lazy='dynamic')
+
+
 	def __init__(self, document_id, type, file_blob):
 		self.document_id = document_id
 		self.type = type
@@ -116,7 +118,7 @@ class Product(db.Model):
 
 class Statistic(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	document_id = db.Column(db.Integer, db.ForeignKey('document.id'))
+	document_id = db.Column(db.Integer, db.ForeignKey('product.id'))
 
 	displays = db.Column(db.Integer)
 	downloads = db.Column(db.Integer)

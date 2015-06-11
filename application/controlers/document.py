@@ -3,7 +3,7 @@
 from application import app, abort, request, Response, redirect, escape, session, url_for, send_file, db, bcrypt, render_template, g, flash
 from application.models.document import *
 from application.controlers.decorators import *
-from application.database.database import Document
+from application.database.database import Document, Product
 from io import BytesIO
 
 @app.route('/session/get_document_info', methods=['POST'])
@@ -78,13 +78,13 @@ def update_document(fileId):
 def download_epub(fileId):
 
 	if Document.query.filter_by(id=fileId).first() != None:
+		
 		epub = create_epub_from_id(fileId)
 	
 		epub_id = Product.query.filter_by(document_id=fileId, type='epub').first().id
 		update_or_create_Statistic(epub_id, 'download')
 	
 		strIO = BytesIO(epub[0])
-		strIO.seek(0)
 		filename = epub[1]+'.epub'
 		return send_file(strIO, as_attachment=True, attachment_filename=filename, mimetype='application/epub+zip')
 
