@@ -4,3 +4,5 @@
 *.db
 venv
 *.egg-info
+/application/static/.webassets-cache
+/application/static/gen
