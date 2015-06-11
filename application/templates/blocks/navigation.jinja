@@ -9,11 +9,11 @@
 			</header>
 			<ul>
 
-				{% for href, icon, caption in [('/', 'icon-home', 'Forside'),
-								 ('/create_document','icon-insert_drive_file' , 'Opret Dokument'),
-        		                 ('/view_documents', 'icon-view_module', 'Dokument oversigt'),
-        		                 ('/logoff', 'icon-lock', 'Log af')] %}
-        			<li><a href="{{ href }}"><span class="{{ icon }}"></span> {{ caption }}</a></li>
+				{% for href, icon, caption in [('index', 'icon-home', 'Forside'),
+								 ('createDocument','icon-insert_drive_file' , 'Opret Dokument'),
+        		                 ('viewDocuments', 'icon-view_module', 'Dokument oversigt'),
+        		                 ('logoff', 'icon-lock', 'Log af')] %}
+        			<li><a href="{{ url_for(href) }}"><span class="{{ icon }}"></span> {{ caption }}</a></li>
     			{% endfor %}
 			</ul>
 		</nav>

@@ -37,7 +37,7 @@
 
 {% macro createLoginForm(seacretKey) -%}
 
-	<form action="/session/login" method="post">
+	<form action="{{ url_for('logUserIn') }}" method="post">
 
 		<div style="margin:0;padding:0;display:inline">
 			<input name="utf8" type="hidden" value="✓">
@@ -59,7 +59,7 @@
 
 {% macro createUserForm(seacretKey) -%}
 
-	<form action="/session/create_user" method="post">
+	<form action="{{ url_for('createUser') }}" method="post">
 
 		<div style="margin:0;padding:0;display:inline">
 			<input name="utf8" type="hidden" value="✓">
@@ -84,7 +84,7 @@
 
 {% macro createDocumentForm(seacretKey, documentTitle,documentSubtitle, documentDescription, documentSubject, documentTopic, documentEducation_level) -%}
 	<div class="row-2">
-	<form action="/session/upload_document" id="createDocument" enctype="multipart/form-data" method="post">
+	<form action="{{ url_for('uploadDocument') }}" id="createDocument" enctype="multipart/form-data" method="post">
 
 		<div style="margin:0;padding:0;display:inline">
 			<input name="utf8" type="hidden" value="✓">
@@ -141,7 +141,7 @@
 
 {% macro createDocumentUpdateForm(seacretKey, id, documentTitle,documentSubtitle, documentDescription, documentSubject, documentTopic, documentEducation_level) -%}
 	<div class="row-2">
-	<form action="/session/update_document/{{ id }}" id="updateDocument" enctype="multipart/form-data" method="post">
+	<form action="{{ url_for('update_document',fileId=id) }}" id="updateDocument" enctype="multipart/form-data" method="post">
 
 		<div style="margin:0;padding:0;display:inline">
 			<input name="utf8" type="hidden" value="✓">

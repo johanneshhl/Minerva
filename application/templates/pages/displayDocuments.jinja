@@ -34,7 +34,7 @@
 	{% for theDocument in theDocuments %}
 
 	<li class="document">
-		<a href="/view_document/{{ theDocument.id }}">
+		<a href="{{ url_for('viewDocument', fileId=theDocument.id) }}">
 		
 		<img src="{{ url_for('static', filename='assets/images/document_bg.svg') }}" height="auto">
 		<div class="meta">
