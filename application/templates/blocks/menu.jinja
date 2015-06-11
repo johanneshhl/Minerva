@@ -1,0 +1,50 @@
+<div class="inner">
+	
+
+	{% if show_navigation == true %}
+	<div id="menu-toggle" class="left icon not_widescreen">
+		<a>
+			<span class="icon-menu"></span>
+		</a>
+	</div>
+	{% endif %}
+
+
+	<div class="left icon">
+		<a href="/">
+			<span class="icon-logo logo"></span>
+			{% if splashpage == true  or show_header == true %}
+			<h1>Minerva</h1>
+			{% endif %}
+		</a>
+	</div>
+	
+	
+
+	{% if splashpage == true %}
+		<div class="right icon">
+			<a href="/login">
+				<h3>Login</h3>
+				<span class="icon-lock logo"></span>
+			</a>
+		</div>
+	{% endif %}
+
+
+	{% if show_navigation == true %}
+			
+			
+	<div id="search_toggle" class="right icon mobile">
+		<a href="#">
+			<span data-alt="icon-close" class="icon-search"></span>
+		</a>
+	</div>
+
+	<div class="right not_mobile serach_input">
+		<div class="btn-groupe">
+			<input type="search" placeholder="Søg"/><button class="green"><span class="icon-search"></span></button>
+		</div>
+	</div>
+
+	{% endif %}	
+</div>

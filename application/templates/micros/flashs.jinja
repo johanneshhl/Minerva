@@ -1,0 +1,36 @@
+{% macro flashs() -%}
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        {%if category=="error" %}
+          {% set bootstrapCategorie = "danger" %}
+        {% elif category=="info" %}
+          {% set bootstrapCategorie = "info" %}
+        {% elif category=="warning" %}
+          {% set bootstrapCategorie = "warning" %}
+        {% else %}
+          {% set bootstrapCategorie = "success" %}
+        {% endif %}
+
+
+        {%if category=="error" %}
+          {% set bootstrapCategorieText = "Fejl" %}
+        {% elif category=="info" %}
+          {% set bootstrapCategorieText = "Info" %}
+        {% elif category=="warning" %}
+          {% set bootstrapCategorieText = "Advarsel" %}
+        {% endif %}
+
+
+          <div class="alert alert-{{ bootstrapCategorie }}" role="alert">
+          {{ message }}
+          </div>
+
+        {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+
+
+{%- endmacro %}

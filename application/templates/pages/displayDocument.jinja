@@ -1,0 +1,50 @@
+{% extends "layout.jinja" %}
+
+{% set show_navigation = true %}
+{% set splashpage = false %}
+{% set Menu = 'solid' %}
+	
+
+{% block title %}{{ theDocument.name }} : info{% endblock %}
+
+{% block content %}
+
+
+	<div class="base-component row-3">
+	<header>
+	<div class="row">
+		<p>
+			<strong>{{theDocument.name}}</strong>
+		</p>
+	</div>
+	{% if theDocument.user_id == g.userId %}
+		<div class="row row-right">
+			<a href="{{ url_for('update_document', fileId=theDocument.id ) }}" alt="Rediger {{ theDocument.name }}"><span class="icon-edit"></span> Rediger Document</a>
+		</div>
+	{% endif %}
+	
+		
+	
+	</header>
+	<section class="body">
+	{{theDocument.name}}
+	<p>{{ theDocument.version }}</p>
+	<p>{{ theDocument.created }}</p>
+	<p>{{ theDocument.name }}</p>
+	<p>{{ theDocument.subtitle }}</p>
+	<p>{{ theDocument.description }}</p>
+	<p>{{ theDocument.subject }}</p>
+	<p>{{ theDocument.topic }}</p>
+	<p>{{ theDocument.education_level }}</p>
+
+	
+	</section>
+	<footer>
+	<a class="button green download" href="{{ url_for('html_view', fileId=theDocument.id ) }}" target="_blank" alt="Vis Hjemmeside">Vis hjemmeside</a>
+	<a class="button green download" href="{{ url_for('download_epub', fileId=theDocument.id ) }}" target="_blank" alt="Hent E-bog">Hent E-bog</a>
+	<a class="button green download" href="{{ url_for('download_orginal', fileId=theDocument.id ) }}" target="_blank" alt="Hent Den orginale docx fil">Hent Docx filen</a>
+	</footer>
+	</div>
+
+{% endblock %}
+

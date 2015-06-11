@@ -1,0 +1,19 @@
+		
+		<nav>
+			<header>
+				<div id="menu-close" class="right">
+					<a href="#">
+						<span class="icon-close"></span>
+					</a>
+				</div>
+			</header>
+			<ul>
+
+				{% for href, icon, caption in [('/', 'icon-home', 'Forside'),
+								 ('/create_document','icon-insert_drive_file' , 'Opret Dokument'),
+        		                 ('/view_documents', 'icon-view_module', 'Dokument oversigt'),
+        		                 ('/logoff', 'icon-lock', 'Log af')] %}
+        			<li><a href="{{ href }}"><span class="{{ icon }}"></span> {{ caption }}</a></li>
+    			{% endfor %}
+			</ul>
+		</nav>

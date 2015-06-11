@@ -1,0 +1,38 @@
+{% extends "layout.jinja" %}
+{% import 'micros/input.jinja' as input %}
+
+{% set show_navigation = true %}
+{% set splashpage = false %}
+{% set Menu = 'solid' %}
+	
+
+{% block title %}Opret Dokument{% endblock %}
+
+{% block content %}
+   			<div class="base-component">
+				<header>
+					<div class="row">
+						<p>Opret document</p>
+					</div>
+					<!--<div class="row">
+						<p>Create document</p>
+					</div>-->
+				</header>
+				<section class="body">
+
+				<div class="row-1">
+					<div id="dropzone" class="droparea" data-text="DOCX" >
+							<img class="icon-logo" src="{{ url_for('static', filename='assets/images/document.svg') }}" height="auto" width="80px">
+						</div>
+						<button data-function="chooseFile" style="width:50%; margin: 0 auto;">Træk eller vælg fil</button>
+					</div>
+					{{ input.createDocumentForm(seacretKey, 'None', 'None', 'None', 'None', 'None', 'None') }}
+				</section>
+				<footer>
+					<div class="right">
+						<button id="submitDocument" disabled class="green">Opret dokument</button>
+					</div>
+				</footer>
+			</div>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "layout.jinja" %}
+{% import 'micros/input.jinja' as input %}
+
+{% set show_navigation = false %}
+{% set splashpage = false %}
+{% set Menu = 'solid' %}
+{% set login = true %}
+{% set show_header = true %}
+{% set website = true %}
+
+{% block title %}{{ theDocument.name }} af {{ theUser.firstname}} {{ theUser.lastname}}{% endblock %}
+
+
+{% block content %}	
+
+	
+			<div class="base-component document_website">
+				<header>
+					<div class="row">
+						{{ theDocument.name }}
+					</div>
+					<div class="row row-right">
+						<a href="/session/get_all_documents_from_user/{{ theUser.id }}">af {{ theUser.firstname}} {{ theUser.lastname}}</a>
+					</div>
+				</header>
+				<section class="body">
+					{{ content | safe }}
+				</section>
+			</div>
+
+{% endblock %}
+

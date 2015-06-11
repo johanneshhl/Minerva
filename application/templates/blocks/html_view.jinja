@@ -1,0 +1,17 @@
+	{% import 'micros/input.jinja' as input %}
+	{% import 'micros/flashs.jinja' as flash %}
+
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>{{ title }}</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='html_view/typeplate.css') }}">
+	</head>
+	<body>
+	<div class="typeplate">
+		{{ content | safe }}
+	</div>
+		
+	}
+	</body>
+	</html>

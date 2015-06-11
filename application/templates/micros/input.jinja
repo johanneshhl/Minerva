@@ -1,0 +1,195 @@
+
+
+
+
+{% macro input(name, value, type, fill=none) -%}
+	<div>
+		<label>{{ value }}</label>
+
+		{% if type == 'textarea' %}
+			<textarea name="{{ name }}" placeholder="{{ value }}">{{ fill | safe }}</textarea>
+		{% else %}
+			{% if fill != none %}
+				<span><input name="{{ name }}" type="{{ type }}" placeholder="{{ value }}" value="{{ fill | safe }}"></span>
+			{% else %}
+				<span><input name="{{ name }}" type="{{ type }}" placeholder="{{ value }}"></span>
+			{% endif %}
+		{% endif %}
+
+	</div>
+{%- endmacro %}
+
+{% macro select(name, selected) -%}
+	<div>
+		<label>Skole niveau</label>
+		<span class="selectorHelper">
+		<select name="{{ name }}">
+			<option value=""> </option>
+			<option value="Folkeskole" {% if selected == 'Folkeskole' %}selected{% endif %} >Folkeskole</option>
+			<option value="Ungdomsuddannelse" {% if selected == 'Ungdomsuddannelse' %}selected{% endif %} >Ungdomsuddannelse</option>
+			<option value="Videregående uddannelser" {% if selected == 'Videregående uddannelser' %}selected{% endif %} >Videregående uddannelser</option>
+		</select>
+		</span>
+	</div>
+{%- endmacro %}
+
+
+
+{% macro createLoginForm(seacretKey) -%}
+
+	<form action="/session/login" method="post">
+
+		<div style="margin:0;padding:0;display:inline">
+			<input name="utf8" type="hidden" value="✓">
+			<input name="authenticity_token" type="hidden" value="{{ seacretKey | safe }}">
+		</div>
+		<section class="body">
+			{{ input('email', 'Email', 'email', none) }}
+			{{ input('password', 'Kodeord', 'password', none) }}
+		</section>
+		<footer>
+			<div class="right">
+				<button type="submit" class="green">Log på</button>
+			</div>
+		</footer>
+	</form>
+
+{%- endmacro %}
+
+
+{% macro createUserForm(seacretKey) -%}
+
+	<form action="/session/create_user" method="post">
+
+		<div style="margin:0;padding:0;display:inline">
+			<input name="utf8" type="hidden" value="✓">
+			<input name="authenticity_token" type="hidden" value="{{ seacretKey | safe }}">
+		</div>
+
+		<section class="body">
+			{{ input('firstname', 'Fornavn', 'text', none) }}
+			{{ input('lastname', 'Efternavn', 'text', none) }}
+			{{ input('email', 'Email', 'email', none) }}
+			{{ input('password', 'Kodeord', 'password', none) }}
+		</section>
+		<footer>
+			<div class="right">
+				<button id="createuser" type="submit" class="green">Opret bruger</button>
+			</div>
+		</footer>
+		
+	</form>
+
+{%- endmacro %}
+
+{% macro createDocumentForm(seacretKey, documentTitle,documentSubtitle, documentDescription, documentSubject, documentTopic, documentEducation_level) -%}
+	<div class="row-2">
+	<form action="/session/upload_document" id="createDocument" enctype="multipart/form-data" method="post">
+
+		<div style="margin:0;padding:0;display:inline">
+			<input name="utf8" type="hidden" value="✓">
+			<input name="authenticity_token" type="hidden" value="{{ seacretKey | safe }}">
+		</div>
+		<input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" id="selectedFile" style="display:none;">
+			
+			<div class="inner-row">
+						{% if documentTitle == 'None' %}
+							{{ input('documentTitle', 'Titel', 'text', '' ) }}
+						{% else %}
+							{{ input('documentTitle', 'Titel', 'text', documentTitle ) }}
+						{% endif %}
+				
+				
+						{% if documentSubtitle == 'None' %}
+							{{ input('documentSubtitle', 'Undertitel', 'text', '' ) }}
+						{% else %}
+							{{ input('documentSubtitle', 'Undertitel', 'text', documentSubtitle ) }}
+						{% endif %}
+				
+				
+						{% if documentSubject == 'None' %}
+							{{ input('documentSubject', 'Fag', 'text', '') }}
+						{% else %}
+							{{ input('documentSubject', 'Fag', 'text', documentSubject) }}
+						{% endif %}
+
+			</div>
+			<div class="inner-row">
+						{% if documentTopic == 'None' %}
+							{{ input('documentTopic', 'Emne', 'text', '') }}
+						{% else %}
+							{{ input('documentTopic', 'Emne', 'text', documentTopic) }}
+						{% endif %}
+						
+						{{ select('documentEducation_level', documentEducation_level) }}
+
+
+						{% if documentDescription == 'None' %}
+							{{ input('documentDescription', 'Beskrivelse', 'textarea', '' ) }}
+						{% else %}
+							{{ input('documentDescription', 'Beskrivelse', 'textarea', documentDescription ) }}
+						{% endif %}
+			</div>
+		
+		
+
+	</form>
+</div>
+{%- endmacro %}
+
+
+
+{% macro createDocumentUpdateForm(seacretKey, id, documentTitle,documentSubtitle, documentDescription, documentSubject, documentTopic, documentEducation_level) -%}
+	<div class="row-2">
+	<form action="/session/update_document/{{ id }}" id="updateDocument" enctype="multipart/form-data" method="post">
+
+		<div style="margin:0;padding:0;display:inline">
+			<input name="utf8" type="hidden" value="✓">
+			<input name="authenticity_token" type="hidden" value="{{ seacretKey | safe }}">
+		</div>
+		<input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" id="selectedFile" style="display:none;">
+			
+			<div class="inner-row">
+						{% if documentTitle == 'None' %}
+							{{ input('documentTitle', 'Titel', 'text', '' ) }}
+						{% else %}
+							{{ input('documentTitle', 'Titel', 'text', documentTitle ) }}
+						{% endif %}
+				
+				
+						{% if documentSubtitle == 'None' %}
+							{{ input('documentSubtitle', 'Undertitel', 'text', '' ) }}
+						{% else %}
+							{{ input('documentSubtitle', 'Undertitel', 'text', documentSubtitle ) }}
+						{% endif %}
+				
+				
+						{% if documentSubject == 'None' %}
+							{{ input('documentSubject', 'Fag', 'text', '') }}
+						{% else %}
+							{{ input('documentSubject', 'Fag', 'text', documentSubject) }}
+						{% endif %}
+
+			</div>
+			<div class="inner-row">
+						{% if documentTopic == 'None' %}
+							{{ input('documentTopic', 'Emne', 'text', '') }}
+						{% else %}
+							{{ input('documentTopic', 'Emne', 'text', documentTopic) }}
+						{% endif %}
+						
+						{{ select('documentEducation_level', documentEducation_level) }}
+
+
+						{% if documentDescription == 'None' %}
+							{{ input('documentDescription', 'Beskrivelse', 'textarea', '' ) }}
+						{% else %}
+							{{ input('documentDescription', 'Beskrivelse', 'textarea', documentDescription ) }}
+						{% endif %}
+			</div>
+		
+		
+
+	</form>
+</div>
+{%- endmacro %}

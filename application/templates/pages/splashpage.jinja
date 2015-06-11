@@ -1,0 +1,27 @@
+{% extends "layout.jinja" %}
+{% import 'micros/input.jinja' as input %}
+
+{% set show_navigation = false %}
+{% set splashpage = true %}
+{% set Menu = 'transparent' %}
+	
+
+{% block title %}Forside{% endblock %}
+
+{% block content %}
+		<div class="hero">
+		<div class="container no_nav">
+			<div class="base-component login">
+				<header>
+					<div class="row">
+						<p>Opret bruger</p>
+					</div>
+					
+				</header>
+				{{ input.createUserForm() }}
+				
+			</div>
+			</div>
+		</div>
+
+{% endblock %}

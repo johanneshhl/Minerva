@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+
+{% set website = website %}
+
+{% block head %}
+	
+		{# Indsæt sidetitel + hjemmeside navn  #}
+	    <title>{% block title %}{% endblock %} - {{ g['siteName'] }}</title>
+	   	{% include "blocks/head.jinja" %}
+	    {# Indsæt metadata  #}		
+{% endblock %}
+</head>	
+	{% set show_navigation = show_navigation %}
+	{% set splashpage = splashpage %}
+	{% set Menu = Menu %}
+	{% set show_header = show_header %}
+	{% set login = login %}
+
+
+	<body>
+	{% if show_navigation == True %}
+		{% include "blocks/navigation.jinja" %}
+	{% endif %}
+
+	<section class="menu {% if Menu == 'transparent'%}transparent{% else %}solid{% endif %} {% if (show_navigation != True ) %}no_nav{% endif %}">
+		{% include "blocks/menu.jinja" %}
+	</section>
+	{% if Menu != 'transparent'%}
+	<div id="search_bar" class="search-bar mobile">
+		<div class="btn-groupe">
+			<input type="search" placeholder="Søg"><button class="green"><span class="icon-search"></span></button>
+		</div>
+	</div>
+	{% endif %}
+
+
+	{% if show_navigation == true %}
+		<div id="overlay"></div>
+	{% endif %}
+
+
+	{% if (splashpage != true or login == true) %}
+
+	<div class="container {% if (login == true) %} no_nav {% endif %}">
+	{% endif %}
+
+	{% block content %}
+	{% endblock %}
+	
+	{% if (splashpage != true or login == true) %}
+
+	</div>
+	{% endif %}
+
+   	{# Indsæt javascript  #}
+   	{% include "blocks/scripts.jinja" %}
+
+	</body>
+
+</html>

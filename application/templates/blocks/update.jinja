@@ -1,0 +1,10 @@
+	{% import 'micros/input.jinja' as input %}
+	{% import 'micros/flashs.jinja' as flash %}
+
+
+
+	{{ flash.flashs() }}	
+
+	{{document.version}}
+	{{ input.createDocumentUpdateForm(seacretKey, document.name, document.subtitle, document.description, document.subject, document.topic, document.education_level) }}
+	

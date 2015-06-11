@@ -1,0 +1,62 @@
+{% extends "layout.jinja" %}
+
+{% set show_navigation = true %}
+{% set splashpage = false %}
+{% set Menu = 'solid' %}
+
+
+	
+{% block title %}Documenter{% endblock %}
+
+{% block content %}
+			
+
+<div class="base-component row-3">
+	<header>
+		<div class="row">
+			<p>Seneste Dokumenter</p>
+		</div>
+		<div class="row row-right button">
+			<p><a class="active" data-target="#document-displayer" data-toggle="document-view"><span class="icon-view_module"></span></a><a data-target="#document-displayer" data-toggle="list-view"><span class="icon-view_list"></span></a></p>
+		</div>
+	</header>
+	<section class="body">
+	<ul id="document-displayer" class="document-view">
+	<li class="document">
+		<a href="/create_document">
+		
+		<img src="{{ url_for('static', filename='assets/images/add-document.svg') }}" height="auto">
+		<div class="meta">
+			<span class="document-name">Opret nyt dokument</span>
+		</div>
+		</a>
+	</li>
+	{% for theDocument in theDocuments %}
+
+	<li class="document">
+		<a href="/view_document/{{ theDocument.id }}">
+		
+		<img src="{{ url_for('static', filename='assets/images/document_bg.svg') }}" height="auto">
+		<div class="meta">
+			<span class="document-name">{{ theDocument.name }}</span>
+			{% if theDocument.subtitle|length > 1 %}<span class="document-other"><br/> {{ theDocument.subtitle }}</span>{% endif %}
+			{% if theDocument.subject|length > 1 %}<span class="document-other"><br/> {{ theDocument.subject }}</span>{% endif %}
+			{% if theDocument.topic|length > 1 %}<span class="document-other"><br/> {{ theDocument.topic }}</span>{% endif %}
+			{% if theDocument.description|length > 1 %}<span class="document-other"><br/> {{ theDocument.description }}</span>{% endif %}
+
+		</div>
+		</a>
+	</li>
+
+	{% endfor %}
+
+	</ul>
+	</section>
+	<footer>
+	</footer>
+</div>
+
+
+
+{% endblock %}
+

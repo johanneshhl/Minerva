@@ -1,0 +1,26 @@
+{% extends "layout.jinja" %}
+{% import 'micros/input.jinja' as input %}
+
+{% set show_navigation = false %}
+{% set splashpage = false %}
+{% set Menu = 'solid' %}
+{% set login = true %}
+{% set show_header = true %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}	
+
+	
+			<div class="base-component login">
+				<header>
+					<div class="row">
+						<p>Login</p>
+					</div>
+					
+				</header>
+				{{ input.createLoginForm() }}
+			</div>
+
+{% endblock %}
+

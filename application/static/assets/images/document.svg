@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="82px" height="111px" viewBox="0 0 82 111" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>document</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Front-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Front-page---Standart" sketch:type="MSArtboardGroup" transform="translate(-111.000000, -191.000000)" stroke="#66bc7f" stroke-dasharray="6" fill="#FFFFFF" stroke-linecap="square" stroke-linejoin="bevel">
+            <g id="base-+-overlay-+-menu" sketch:type="MSLayerGroup" transform="translate(-68.000000, 0.000000)">
+                <g id="base" sketch:type="MSShapeGroup">
+                    <g id="Group" transform="translate(0.000000, 89.000000)">
+                        <g id="document-+-Oval-1-+-Shape" transform="translate(179.000000, 102.125000)">
+                            <path d="M0,0 L54.7189399,0 L82,27.6936266 L82,109.88 L0,109.88 L0,0 Z" id="document"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
