@@ -181,7 +181,7 @@ def create_epub_from_id(fileId):
 
 		newEpub = HTML_TO_EPUB(Data.documentContent, meta)
 
-		addEpub = Product(orgDocument.id, 'epub', )
+		addEpub = Product(orgDocument.id, 'epub', newEpub.createEpub())
 		
 		db.session.add(addEpub)
 		db.session.commit()
@@ -233,7 +233,7 @@ def create_HTML_from_id(fileId):
 	
 		addHTML = Product(orgDocument.id, 'html', HTML_text.encode())
 		addHTML.version = int(orgDocument.version)
-#
+
 		db.session.add(addHTML)
 		db.session.commit()
 

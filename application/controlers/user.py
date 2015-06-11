@@ -60,7 +60,6 @@ def logUserIn():
 
 
 @app.route('/session/logout', methods=['GET'])
-@login_required
 def logUserOut():
 
 	session.clear()
