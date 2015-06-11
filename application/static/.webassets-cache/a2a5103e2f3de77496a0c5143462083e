@@ -1,3 +1,0 @@
-Vbody:before{white-space:pre;font-family:monospace;content:"Error:File to import not found or unreadable:components/system/typeplate.csss.\u005cA Load paths:\u005cA \u005cA on line 28 of minerva/components/_login.scss\u005cA from line 23 of minerva/_minerva.scss\u005cA from line 14 of main.scss\u005cA \u005cA 23:margin-left:auto;\u005cA 24:margin-right:auto;\u005cA 25:position:relative;\u005cA 26:height:100%;\u005cA 27:\u005cA 28:@import \u005c"components/system/typeplate.csss\u005c";\u005cA 29:}"}
-p1
-.
