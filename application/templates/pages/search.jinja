@@ -1,0 +1,60 @@
+{% extends "layout.jinja" %}
+
+{% set show_navigation = true %}
+{% set splashpage = false %}
+{% set Menu = 'solid' %}
+
+
+	
+{% block title %}Documenter{% endblock %}
+
+{% block content %}
+			
+
+<div class="base-component row-3">
+	<header>
+		<div class="row">
+			<p>Søge resulter for <b>{{ param }}</b></p>
+		</div>
+	</header>
+	<section class="body">
+
+	{% if amount < 1 %}
+		
+		<p> Ingen resulter for <b>{{ param }}</b> </p>
+
+	{% else %}
+
+	<ul id="document-displayer" class="list-view">
+	{% for theDocument in theDocuments %}
+
+	<li class="document">
+		<a href="{{ url_for('viewDocument', fileId=theDocument.id, _external=True, _scheme=g.PREFERRED_URL_SCHEME) }}">
+		
+		<img src="{{ url_for('static', filename='assets/images/document_bg.svg') }}" height="auto">
+		<div class="meta">
+			<span class="document-name">{{ theDocument.name }}</span>
+			{% if theDocument.subtitle|length > 1 %}<span class="document-other"><br/> {{ theDocument.subtitle }}</span>{% endif %}
+			{% if theDocument.subject|length > 1 %}<span class="document-other"><br/> {{ theDocument.subject }}</span>{% endif %}
+			{% if theDocument.topic|length > 1 %}<span class="document-other"><br/> {{ theDocument.topic }}</span>{% endif %}
+			{% if theDocument.description|length > 1 %}<span class="document-other"><br/> {{ theDocument.description }}</span>{% endif %}
+
+		</div>
+		</a>
+	</li>
+
+	{% endfor %}
+	</ul>
+	{% endif %}
+
+
+	
+	</section>
+	<footer>
+	</footer>
+</div>
+
+
+
+{% endblock %}
+
