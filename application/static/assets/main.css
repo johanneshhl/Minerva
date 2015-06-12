@@ -38,7 +38,8 @@ html {
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
-  line-height: 1;
+  line-height: 0.8;
+  margin-right: 0.2em;
   text-decoration: none;
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
@@ -1221,7 +1222,7 @@ div.container {
   .base-component section.body {
     height: auto;
     display: block;
-    padding: 0px 10px; }
+    padding: 10px 10px 0px 10px; }
     .base-component section.body iframe {
       height: 100%; }
     .base-component section.body ul#document-displayer {
@@ -1556,7 +1557,7 @@ button,
 input[type=button] {
   -webkit-font-smoothing: antialiased;
   cursor: pointer;
-  display: block;
+  display: inline-block;
   text-align: center;
   font-family: "proxima-nova", sans-serif;
   font-size: 0.97em;

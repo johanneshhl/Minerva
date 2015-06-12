@@ -6,6 +6,10 @@ from application.controlers.decorators import *
 from application.database.database import Document, Product, User
 from io import BytesIO
 
+
+
+
+
 @app.route('/session/get_document_info', methods=['POST'])
 def testUpload():
 	response = get_docx_info(request.files['file'])
@@ -18,25 +22,6 @@ def get_all_documents_from_user(userId):
 	documents = Document.query.filter_by(user_id=userId).limit(20)
 	user = User.query.filter_by(id=userId).first()
 	return render_template('pages/displayDocumentsNotLoggedIn.jinja', theDocuments=documents, theUser=user)
-
-
-
-
-	
-
-@app.route('/session/get_all_documents_from_user/me', methods=['GET'])
-@login_required
-def get_all_documents_from_me():
-	documents = Document.query.filter_by(user_id=g.userId).limit(20)
-
-	docString = u''
-
-	for document in documents:
-		docString += '{} - {}<br/>'.format(document.id, document.name)
-
-	return docString
-
-
 
 
 

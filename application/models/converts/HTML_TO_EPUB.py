@@ -46,9 +46,9 @@ class HTML_TO_EPUB(object):
 
 	def getChapters(self):
 		html = []
-
-		if len(self.DATA_HTML.find_all("h1")) < 1:
-			html = ['chapter001','No title', unicode(self.DATA_HTML)]
+		if self.DATA_HTML.find_all("h1") == []:
+			node = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>{0}</title><link rel="stylesheet" type="text/css" href="css/style.css"></link></head><body>{1}</body></html>'.format('No title',unicode(self.DATA_HTML))
+			html = [['chapter001','No title', node]]
 		else:
 			x = 0
 			for h1 in self.DATA_HTML.find_all("h1"):
@@ -110,7 +110,6 @@ class HTML_TO_EPUB(object):
 		spineItems = u''
 
 		chapters = self.getChapters()
-
 		for chapter in chapters:
 			manifestItems += '<item href="{0}.html" id="{0}" media-type="application/xhtml+xml"/>'.format(chapter[0])
 			spineItems += '<itemref idref="{0}"/>'.format(chapter[0])

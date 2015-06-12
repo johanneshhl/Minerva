@@ -30,7 +30,9 @@
 	{% if Menu != 'transparent'%}
 	<div id="search_bar" class="search-bar mobile">
 		<div class="btn-groupe">
-			<input type="search" placeholder="Søg"><button class="green"><span class="icon-search"></span></button>
+			<form action="{{ url_for('searchWithParam', _external=True, _scheme=g.PREFERRED_URL_SCHEME) }}" method="get">
+				<input type="search" name="search_input" placeholder="Søg"/><button class="green"><span type="submit" class="icon-search"></span></button>
+			</form>
 		</div>
 	</div>
 	{% endif %}

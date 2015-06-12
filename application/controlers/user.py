@@ -19,7 +19,7 @@ def createUser():
 	if 'next' in request.args:
 		returnURL = request.args['next']
 	else:
-		returnURL = url_for('index', _external=True, _scheme="https")
+		returnURL = url_for('index', _external=True, _scheme=app.config['PREFERRED_URL_SCHEME'])
 
 
 	if (request.method == 'GET'):
@@ -46,7 +46,7 @@ def logUserIn():
 	if 'next' in request.args:
 		returnURL = request.args['next']
 	else:
-		returnURL = url_for('index', _external=True, _scheme="https")
+		returnURL = url_for('index', _external=True, _scheme=app.config['PREFERRED_URL_SCHEME'])
 
 
 	if (request.method == 'GET'):
@@ -65,7 +65,7 @@ def logUserOut():
 	session.clear()
 	flash('Logget af', 'info')
 
-	return redirect(url_for('index', _external=True, _scheme="https"))
+	return redirect(url_for('index', _external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
 
 
 

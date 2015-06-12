@@ -156,7 +156,7 @@
 
 
 				if (search_toggle != null) {
-
+				var button = search_toggle.getElementsByTagName('span')[0];
 				search_toggle.addEventListener('click', function() {
 
 				var nameElem = document.getElementById('search_bar')

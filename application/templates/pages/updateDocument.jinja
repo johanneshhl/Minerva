@@ -21,13 +21,17 @@
 					<div id="dropzone" class="droparea" data-text="DOCX" >
 							<img class="icon-logo" src="{{ url_for('static', filename='assets/images/document.svg') }}" height="auto" width="80px">
 						</div>
-						<button data-function="chooseFile" style="width:50%; margin: 0 auto;">Træk eller vælg fil</button>
+						<button data-function="chooseFile" style="display:block; width:50%; margin: 0 auto;">Træk eller vælg fil</button>
 					</div>
 					{{ input.createDocumentUpdateForm(seacretKey, theDocument.id, theDocument.name , theDocument.subtitle, theDocument.description, theDocument.subject, theDocument.topic, theDocument.education_level ) }}
 				</section>
 				<footer>
 					<div class="right">
-						<button type="submit" id="submitDocument" class="green">Opdater dokument</button>
+						<a href="{{ url_for('viewDocument', fileId=theDocument.id, _external=True, _scheme=g.PREFERRED_URL_SCHEME) }}" class="button red"><span class="icon-close"></span>Annullere</a>
+					</div>
+
+					<div class="right">
+							<button type="submit" id="submitDocument" class="green">Opdater dokument</button>
 					</div>
 				</footer>
 			</div>

@@ -178,7 +178,7 @@ def create_epub_from_id(fileId):
 		Data = DATA_HTML(fileBlob, '')
 
 		meta = dict(title=orgDocument.name, subject=orgDocument.subject, category=orgDocument.topic, description=orgDocument.description, lang='da', creator=authorName)
-		app.logger.info(Data.documentContent)
+		
 
 		newEpub = HTML_TO_EPUB(Data.documentContent, meta)
 

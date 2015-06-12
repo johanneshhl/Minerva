@@ -8,15 +8,6 @@ from application.database.database import Document, User, Product, Statistic
 
 
 
-@app.route('/')
-def index():
-
-	if g.userIsloggedIn == True:
-		return render_template('pages/forside.jinja')
-	else: 
-		return render_template('pages/splashpage.jinja')
-
-
 @app.route('/create_document', methods=['GET'])
 @login_required
 def createDocument():
