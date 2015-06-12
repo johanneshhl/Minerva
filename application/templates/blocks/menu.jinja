@@ -11,7 +11,7 @@
 
 
 	<div class="left icon">
-		<a href="{{ url_for('index') }}">
+		<a href="{{ url_for('index'  _external=True, _scheme="https") }}">
 			<span class="icon-logo logo"></span>
 			{% if splashpage == true  or show_header == true %}
 			<h1>Minerva</h1>
@@ -23,7 +23,7 @@
 
 	{% if splashpage == true %}
 		<div class="right icon">
-			<a href="{{ url_for('login') }}">
+			<a href="{{ url_for('login', _external=True, _scheme="https") }}">
 				<h3>Login</h3>
 				<span class="icon-lock logo"></span>
 			</a>

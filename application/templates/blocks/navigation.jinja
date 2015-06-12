@@ -13,7 +13,7 @@
 								 ('createDocument','icon-insert_drive_file' , 'Opret Dokument'),
         		                 ('viewDocuments', 'icon-view_module', 'Dokument oversigt'),
         		                 ('logoff', 'icon-lock', 'Log af')] %}
-        			<li><a href="{{ url_for(href) }}"><span class="{{ icon }}"></span> {{ caption }}</a></li>
+        			<li><a href="{{ url_for(href,  _external=True, _scheme="https") }}"><span class="{{ icon }}"></span> {{ caption }}</a></li>
     			{% endfor %}
 			</ul>
 		</nav>
