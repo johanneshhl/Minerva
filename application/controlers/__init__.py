@@ -14,6 +14,7 @@ def before_request():
 	g.siteVersion = app.config['APPLICATION_VERSION']
 
 	g.baseUrl = url_for('index')
+	g.PREFERRED_URL_SCHEME = app.config['PREFERRED_URL_SCHEME']
 
 	if 'LoggedIn' in session:
 		g.userIsloggedIn = True

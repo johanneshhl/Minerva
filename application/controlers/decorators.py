@@ -25,7 +25,7 @@ def allready_logged_in(f):
     def decorated_function(*args, **kwargs):
         
         if g.userIsloggedIn == True:
-            return redirect(url_for('index', _external=True, _scheme="https"))
+            return redirect(url_for('index', _external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
 
         return f(*args, **kwargs)
     return decorated_function

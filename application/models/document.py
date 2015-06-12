@@ -111,7 +111,7 @@ def Add_Docx_to_database(file, metadata):
 	db.session.add(addDocument)
 	db.session.commit()
 
-	return redirect(url_for('viewDocument', fileId=addDocument.id, _external=True, _scheme="https"))
+	return redirect(url_for('viewDocument', fileId=addDocument.id, _external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
 
 
 
@@ -147,13 +147,13 @@ def update_document_from_dict(fileId, metadataDict, file):
 		
 
 		fileBlob = BytesIO(file.read())
-
+		app.logger.info(fileBlob)
 		if (zipfile.is_zipfile(fileBlob.getvalue())):
 			orgDocument.original_file = fileBlob.getvalue()
 
 		db.session.commit()
 
-		return redirect(url_for('viewDocument', fileId=orgDocument.id, _external=True, _scheme="https"))
+		return redirect(url_for('viewDocument', fileId=orgDocument.id, _external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
 
 	else:
 		abort(403)
