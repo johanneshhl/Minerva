@@ -145,9 +145,10 @@ def update_document_from_dict(fileId, metadataDict, file):
 		if 'documentEducation_level' in metadataDict:
 			orgDocument.education_level = u''+str(metadataDict['documentEducation_level'])
 		
-		app.logger.info(file)
-		if (file != None) and (zipfile.is_zipfile(file.read())):
-			fileBlob = BytesIO(file.read())
+
+		fileBlob = BytesIO(file.read())
+
+		if (zipfile.is_zipfile(fileBlob.read())):
 			orgDocument.original_file = fileBlob.getvalue()
 
 		db.session.commit()
