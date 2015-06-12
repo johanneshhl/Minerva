@@ -148,7 +148,7 @@ def update_document_from_dict(fileId, metadataDict, file):
 
 		fileBlob = BytesIO(file.read())
 
-		if (zipfile.is_zipfile(fileBlob.read())):
+		if (zipfile.is_zipfile(fileBlob.getvalue())):
 			orgDocument.original_file = fileBlob.getvalue()
 
 		db.session.commit()
