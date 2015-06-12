@@ -111,7 +111,7 @@ def Add_Docx_to_database(file, metadata):
 	db.session.add(addDocument)
 	db.session.commit()
 
-	return redirect(url_for('viewDocument', fileId=addDocument.id ))
+	return redirect(url_for('viewDocument', fileId=addDocument.id, _external=True, _scheme="https"))
 
 
 
@@ -153,7 +153,7 @@ def update_document_from_dict(fileId, metadataDict, file):
 
 		db.session.commit()
 
-		return redirect(url_for('viewDocument', fileId=orgDocument.id))
+		return redirect(url_for('viewDocument', fileId=orgDocument.id, _external=True, _scheme="https"))
 
 	else:
 		abort(403)
