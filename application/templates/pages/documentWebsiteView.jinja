@@ -20,7 +20,7 @@
 						{{ theDocument.name }}
 					</div>
 					<div class="row row-right">
-						<a href="{{ url_for('get_all_documents_from_user', userId=theUser.id ) }}">af {{ theUser.firstname}} {{ theUser.lastname}}</a>
+						<a href="{{ url_for('get_all_documents_from_user', userId=theUser.id, _external=True, _scheme=g.PREFERRED_URL_SCHEME ) }}">af {{ theUser.firstname}} {{ theUser.lastname}}</a>
 					</div>
 				</header>
 				<section class="body">

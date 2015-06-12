@@ -19,7 +19,7 @@
 						{{ theDocument.name }}
 					</div>
 					<div class="row row-right">
-						<a href="{{ url_for('get_all_documents_from_user', userId=theUser.id) }}">af {{ theUser.firstname}} {{ theUser.lastname}}</a>
+						<a href="{{ url_for('get_all_documents_from_user', userId=theUser.id , _external=True, _scheme=g.PREFERRED_URL_SCHEME) }}">af {{ theUser.firstname}} {{ theUser.lastname}}</a>
 					</div>
 				</header>
 				<section class="body">
@@ -33,18 +33,18 @@
 					<p>{{ theDocument.education_level }}</p>
 				
 					{% if theDocument.user_id == g.userId %}
-					<p><a class="button white" href="{{ url_for('html_view', fileId=theDocument.id ) }}" target="_blank" alt="Rediger {{ theDocument.name }}">Rediger Document</a></p>
+					<p><a class="button white" href="{{ url_for('html_view', fileId=theDocument.id , _external=True, _scheme=g.PREFERRED_URL_SCHEME) }}" target="_blank" alt="Rediger {{ theDocument.name }}">Rediger Document</a></p>
 					{% endif %}
 				</section>
 				<footer>
 
-					<a class="button green download" href="{{ url_for('html_view', fileId=theDocument.id ) }}" target="_blank" alt="Vis Hjemmeside">Vis hjemmeside</a>
+					<a class="button green download" href="{{ url_for('html_view', fileId=theDocument.id , _external=True, _scheme=g.PREFERRED_URL_SCHEME)  }}" target="_blank" alt="Vis Hjemmeside">Vis hjemmeside</a>
 					 
  
-					<a class="button green download" href="{{ url_for('download_epub', fileId=theDocument.id ) }}" target="_blank" alt="Hent E-bog">Hent E-bog</a>
+					<a class="button green download" href="{{ url_for('download_epub', fileId=theDocument.id , _external=True, _scheme=g.PREFERRED_URL_SCHEME)  }}" target="_blank" alt="Hent E-bog">Hent E-bog</a>
 					 
  
-					<a class="button green download" href="{{ url_for('download_orginal', fileId=theDocument.id ) }}" target="_blank" alt="Hent Den orginale docx fil">Hent Docx filen</a>
+					<a class="button green download" href="{{ url_for('download_orginal', fileId=theDocument.id , _external=True, _scheme=g.PREFERRED_URL_SCHEME)  }}" target="_blank" alt="Hent Den orginale docx fil">Hent Docx filen</a>
 				</footer>
 			</div>
 

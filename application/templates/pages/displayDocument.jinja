@@ -19,7 +19,7 @@
 	</div>
 	{% if theDocument.user_id == g.userId %}
 		<div class="row row-right">
-			<a href="{{ url_for('update_document', fileId=theDocument.id ) }}" alt="Rediger {{ theDocument.name }}"><span class="icon-edit"></span> Rediger Document</a>
+			<a href="{{ url_for('update_document', fileId=theDocument.id , _external=True, _scheme=g.PREFERRED_URL_SCHEME) }}" alt="Rediger {{ theDocument.name }}"><span class="icon-edit"></span> Rediger Document</a>
 		</div>
 	{% endif %}
 	

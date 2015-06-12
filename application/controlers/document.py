@@ -3,7 +3,7 @@
 from application import app, abort, request, Response, redirect, escape, session, url_for, send_file, db, bcrypt, render_template, g, flash
 from application.models.document import *
 from application.controlers.decorators import *
-from application.database.database import Document, Product
+from application.database.database import Document, Product, User
 from io import BytesIO
 
 @app.route('/session/get_document_info', methods=['POST'])
@@ -16,14 +16,13 @@ def testUpload():
 @app.route('/session/get_all_documents_from_user/<int:userId>', methods=['GET'])
 def get_all_documents_from_user(userId):
 	documents = Document.query.filter_by(user_id=userId).limit(20)
+	user = User.query.filter_by(id=userId).first()
+	return render_template('pages/displayDocumentsNotLoggedIn.jinja', theDocuments=documents, theUser=user)
 
-	docString = u''
 
-	for document in documents:
-		docString += '{} - {}<br/>'.format(document.id, document.name)
 
-	return docString
 
+	
 
 @app.route('/session/get_all_documents_from_user/me', methods=['GET'])
 @login_required
