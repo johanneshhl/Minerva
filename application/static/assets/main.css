@@ -1169,7 +1169,7 @@ div.container {
   height: auto; }
   .base-component header {
     top: 0px;
-    height: 50px;
+    min-height: 50px;
     padding: 12px;
     background-color: #FFFFFF;
     border-top-left-radius: 3px;
