@@ -36,7 +36,6 @@ import application.database
 import application.controlers
 import application.models
 
-import application.functions
 
 
 
