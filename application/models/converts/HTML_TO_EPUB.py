@@ -80,15 +80,12 @@ class HTML_TO_EPUB(object):
 
 		title = "<dc:title>{}</dc:title>".format(self.documentTitle)
 
-		firstName = u''
-		lastName = u''
-		for i, name in enumerate(self.documentCreator.split(" ")):
-			if i > 1:
-				lastName = name
-			else: 
-				firstName += name + ' '
 
-		creator = "<dc:creator opf:file-as='{1}, {0}' opf:role='aut'>{0}{1}</dc:creator>".format(firstName, lastName)
+		app.logger.info(self.documentCreator)
+		firstName = self.documentCreator.split(" ",1)[0]
+		lastName = self.documentCreator.split(" ",1)[1]
+
+		creator = "<dc:creator opf:file-as='{1}, {0}' opf:role='aut'>{0} {1}</dc:creator>".format(firstName, lastName)
 
 		date = "<dc:date>{0}</dc:date>".format(time.strftime("%Y"))
 

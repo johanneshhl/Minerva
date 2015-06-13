@@ -30,24 +30,6 @@ def searchWithParam():
 	result = {}
 	x = 0
 
-	#for newDocument in SearchResult:
-	#	x += 1
-	#	result.update(
-	#			{'item{}'.format(x):
-	#				{ 
-	#					'name': newDocument.name,
-	#				 	'subtitle':newDocument.subtitle,
-	#				 	'description':newDocument.description,
-	#				 	'subject':newDocument.subject,
-	#				 	'topic':newDocument.topic,
-	#				 	'education_level':newDocument.education_level
-	#				 }
-	#			}
-	#		)
-
-	#return jsonify(result)
-
-
 	return render_template('pages/search.jinja', param=requestString, theDocuments=SearchResult, amount=SearchResult.count())
 
 

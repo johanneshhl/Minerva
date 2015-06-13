@@ -49,7 +49,7 @@
 		</section>
 		<footer>
 			<div class="right">
-				<button type="submit" class="green">Log på</button>
+				<button type="submit" disabled class="green">Log på</button>
 			</div>
 		</footer>
 	</form>
@@ -59,7 +59,7 @@
 
 {% macro createUserForm(seacretKey) -%}
 
-	<form action="{{ url_for('createUser', _external=True, _scheme=g.PREFERRED_URL_SCHEME) }}" method="post">
+	<form data-info="createUserForm" action="{{ url_for('createUser', _external=True, _scheme=g.PREFERRED_URL_SCHEME) }}" method="post">
 
 		<div style="margin:0;padding:0;display:inline">
 			<input name="utf8" type="hidden" value="✓">
@@ -71,10 +71,12 @@
 			{{ input('lastname', 'Efternavn', 'text', none) }}
 			{{ input('email', 'Email', 'email', none) }}
 			{{ input('password', 'Kodeord', 'password', none) }}
+			<label><span class="grey">Minimum 9 tegn</span></label>
+
 		</section>
 		<footer>
 			<div class="right">
-				<button id="createuser" type="submit" class="green">Opret bruger</button>
+				<button id="createuser" disabled type="submit" class="green">Opret bruger</button>
 			</div>
 		</footer>
 		

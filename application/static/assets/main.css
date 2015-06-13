@@ -38,7 +38,7 @@ html {
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
-  line-height: 0.8;
+  line-height: 0.9;
   margin-right: 0.2em;
   text-decoration: none;
   /* Better Font Rendering =========== */
@@ -48,14 +48,23 @@ html {
 .icon-logo:before {
   content: "\e600"; }
 
+.icon-add_circle_outline:before {
+  content: "\e06c"; }
+
 .icon-insert_drive_file:before {
   content: "\e0e7"; }
+
+.icon-cloud_upload:before {
+  content: "\e0fe"; }
 
 .icon-edit:before {
   content: "\e15e"; }
 
 .icon-view_comfortable:before {
   content: "\e1bb"; }
+
+.icon-cancel:before {
+  content: "\e205"; }
 
 .icon-check:before {
   content: "\e206"; }
@@ -487,6 +496,27 @@ body {
   font-family: "proxima-nova", sans-serif;
   font-size: 0.97em;
   line-height: 1.5; }
+
+.blue {
+  color: #6696bc; }
+
+.green {
+  color: #66bc7f; }
+
+.yellow {
+  color: #ded267; }
+
+.red {
+  color: #ba5656; }
+
+.grey {
+  color: #bfbfbf; }
+
+.black {
+  color: #13252F; }
+
+.white {
+  color: #FFFFFF; }
 
 /* ----------- H# ------------ */
 h1 {
@@ -983,7 +1013,6 @@ div.container {
   max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
-  min-height: 100%;
   margin-top: 70px;
   padding: 0px 1% 20px 1%;
   max-width: 1400px; }
@@ -2029,6 +2058,9 @@ select {
     -moz-hyphens: none;
     -ms-hyphens: none;
     hyphens: none; }
+  .document_website ins {
+    background-color: yellow;
+    text-decoration: none; }
   .document_website pre {
     white-space: pre; }
   .document_website pre code {

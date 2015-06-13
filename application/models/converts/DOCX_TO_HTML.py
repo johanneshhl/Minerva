@@ -255,7 +255,7 @@ class DATA_HTML():
 							i='i',
 							b='b',
 							u='u',
-							strike='del'
+							strike='del',
 						)
 
 
@@ -279,6 +279,11 @@ class DATA_HTML():
 
 						openingNode = "<{0}>{1}".format(nodeName, openingNode)
 						closeingNode = "{1}</{0}>".format(nodeName, closeingNode)
+
+					elif inlineBlock.name == 'w:highlight':
+						nodeName = '<ins>'
+						closeingNode = '<ins>'
+
 
 					elif inlineBlock.name == 'w:color':
 						if inlineBlock['w:val'] != 'auto':

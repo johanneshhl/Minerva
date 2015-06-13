@@ -41,14 +41,11 @@ def uploadDocument():
 def update_document(fileId):
 
 	if request.method == 'POST':
-		app.logger.info(request.form)
+		
 		return update_document_from_dict(fileId, request.form, request.files['file'])
 
 	else:
 		file = Document.query.filter_by(id=fileId).first()
-
-		app.logger.info(file.user_id)
-		app.logger.info(g.userId)
 
 		if file.user_id == int(g.userId):
 			return render_template('pages/updateDocument.jinja', theDocument=file)

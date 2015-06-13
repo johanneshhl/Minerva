@@ -32,6 +32,27 @@ def createUser():
 
 
 
+@app.route('/session/checkuser', methods=['POST'])
+def checkuser():
+
+	'''
+		Funktion til at tjekke om at brugernavenet findes
+
+	'''
+	theUsername = request.form['email']
+ 	email_unic = (User.query.filter(User.email.ilike(theUsername)).first() == None)
+
+	if theUsername == False or theUsername == '':
+		return 'false', 400
+	elif theUsername != '' and email_unic == True:
+		return 'ok', 200
+	else:
+		return 'Username unavailable'
+
+
+
+
+
 
 @app.route('/session/login', methods=['POST','GET'])
 @allready_logged_in

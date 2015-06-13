@@ -30,7 +30,7 @@ def createUserFromDict(returnURL, userDict):
 
 	utf_Test = (u''+userDict['utf8']) == u'✓'
  	email_unic = (User.query.filter(User.email.ilike(userDict['email'])).first() == None)
- 	password_long = (len(userDict['password']) > 8)
+ 	password_long = (len(userDict['password']) >= 8)
 
 	if (utf_Test and email_unic and password_long):
 	

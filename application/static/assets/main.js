@@ -64,8 +64,11 @@
 					setValueOfInput('[name*="documentSubject"]', json.documentSubject);
 					setValueOfInput('[name*="documentTopic"]', json.documentTopic);
 					setValueOfInput('[name*="documentDescription"]', json.documentDescription);
-					$('select[name*="documentEducation_level"]').children('option').prop('selected', true);
-					$('select[name*="documentEducation_level"] option[value*="'+json.documentEducation_level+'"]').attr('selected', 'selected');
+
+					if (json.documentEducation_level != '') {
+						$('select[name*="documentEducation_level"]').children('option').prop('selected', true);
+						$('select[name*="documentEducation_level"] option[value*="'+json.documentEducation_level+'"]').attr('selected', 'selected');
+					}; 
 
 
 
@@ -231,6 +234,113 @@
 
 
 				
+
+
+
+
+function getUser(input) {
+	var msg = $.ajax({
+		type: "POST",
+		url: '/session/checkuser',
+		data: ({ email: input }),
+		dataType: "text/html", async: false
+	});
+
+	return msg.responseText;
+}
+
+
+function validateUser (email) {
+	var theTest = getUser(email)
+	console.log(theTest)
+
+	if (theTest === 'ok'){
+		return true
+	} 
+	else{
+		return false
+	};
+}
+
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}
+
+function validateString(string, length) {
+	if (string.length <= length) {
+		return false
+	}else {
+		return true
+	}
+}
+
+
+
+
+
+$('[name*="email"]').keyup(function(event) {
+	if ($(this).parents('form').attr('data-info') === 'createUserForm'){
+		test = ((validateEmail(this.value) === true ) && (validateUser(this.value)) )
+	} else {
+		test = ((validateEmail(this.value) === true ))
+	};
+	validateInput(test, $(this))
+});
+
+
+
+
+$('[name*="firstname"]').keyup(function(event) {
+	test = (validateString(this.value, 1) === true )
+	validateInput(test, $(this))
+});
+
+
+
+
+$('[name*="lastname"]').keyup(function(event) {
+	test = (validateString(this.value, 1) === true )
+	validateInput(test, $(this))
+});
+
+
+
+$('[name*="password"]').keyup(function(event) {
+	test = (validateString(this.value, 8) === true )
+	validateInput(test, $(this))
+});
+
+
+
+
+function validateInput(functionVar, formElement) {
+		
+		
+		var parentNode = formElement.parent('span');
+		
+		if (functionVar != true) {
+			var codeClass = 'not_valid'
+
+		}else {
+			var codeClass = 'valid'
+		}
+
+		parentNode.attr('class', codeClass);
+
+		var tests = ((formElement.parents('form').find('[name*="email"]').parent('span').attr('class') === 'valid') && formElement.parents('form').find('[name*="password"]').parent('span').attr('class') === 'valid')
+
+		if (tests == true) {
+			formElement.parents('form').find('button').removeAttr('disabled');
+		} else {
+			formElement.parents('form').find('button').attr('disabled', '');
+		};
+
+};
+
+
+
+
 
 
 
