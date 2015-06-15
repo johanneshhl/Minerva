@@ -22,7 +22,7 @@ else:
 	SESSION_COOKIE_SECURE = True
 	SESSION_COOKIE_NAME = 'herokuSession'
 	PREFERRED_URL_SCHEME = 'https'
-	DEBUG = True
+	DEBUG = False
 
 
 UPLOAD_FOLDER = 'static/assets'

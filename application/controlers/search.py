@@ -14,6 +14,15 @@ from application.database.database import Document, User, Product, Statistic
 @login_required
 def searchWithParam():
 
+
+	'''
+
+		Søg efter dokument ud fra meta data
+		maksimal 20 svar
+
+		og retuner side med svar
+
+	'''
 	
 	requestString = request.args.get('search_input')
 
@@ -24,11 +33,8 @@ def searchWithParam():
 		Document.subject.contains(requestString),
 		Document.topic.contains(requestString),
 		Document.education_level.contains(requestString)
-		)).limit(20)
+	)).limit(20)
 
-
-	result = {}
-	x = 0
 
 	return render_template('pages/search.jinja', param=requestString, theDocuments=SearchResult, amount=SearchResult.count())
 

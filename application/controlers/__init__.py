@@ -7,6 +7,16 @@ import datetime
 
 @app.before_request
 def before_request():
+
+
+	'''
+
+		Globale variabler 
+		Bliver kaldt før hver eneste kald
+		
+
+	'''
+
 	g.year = datetime.datetime.now().year
 	
 	g.siteName = app.config['APPLICATION_NAME']

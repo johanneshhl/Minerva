@@ -28,14 +28,22 @@ from application.database.database import Document, User, Product, Statistic
 
 
 def get_docx_info(file):
-	filename = file.filename.split(".docx",1)[0]
-	fileBlob = BytesIO(file.read())
-	#fileBlob.content_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-	newDocument = DATA_HTML(fileBlob, filename)
 
-	category = ''
+	'''
+
+		Henter infomation fra docx fil
+		retuner json med metadata
+
+	'''
+
+	filename = file.filename.split(".docx",1)[0] #find fil navn
+	fileBlob = BytesIO(file.read()) #Læs docx i hukommelse
+
+	newDocument = DATA_HTML(fileBlob, filename) # nyt objekt fra filblob og filnavn
+
+	category = '' #ny variable 
 	
-	for i, item in enumerate(newDocument.documentCategory):
+	for i, item in enumerate(newDocument.documentCategory): #Loop over emner og lav komma string
 		if i == (len(newDocument.documentCategory)-1):
 			category += item
 		else: 
@@ -48,69 +56,77 @@ def get_docx_info(file):
 
 def Add_Docx_to_database(file, metadata):
 	
-	filename = file.filename.split(".docx",1)[0]
-	
-	fileBlob = BytesIO(file.read())
+	'''
 
-	newDocument = DATA_HTML(fileBlob, filename)
+		Henter infomation fra docx fil
+		Og hvis der sendes metadata med, overskriver de docx standart metadater 
+
+		Derefter oprettet dockument i databasen
+
+	'''
+
+	filename = file.filename.split(".docx",1)[0] #filnavn
+	
+	fileBlob = BytesIO(file.read()) #Læs docx i hukommelse
+
+	newDocument = DATA_HTML(fileBlob, filename) # nyt objekt fra filblob og filnavn
 
 	category = ''
-	for i, item in enumerate(newDocument.documentCategory):
+	for i, item in enumerate(newDocument.documentCategory): #Loop over emner og lav komma string
 		if i == (len(newDocument.documentCategory)-1):
 			category += item
 		else: 
 			category += item + ','
 
 
-	app.logger.info(metadata)
-
-
-	if 'documentTitle' in metadata:
+	if 'documentTitle' in metadata:  # er 'documentTitle' i metadata så lav ny variable
 		name = u''+str(metadata['documentTitle'])
 	else:
 		name = u''+str(newDocument.documentTitle)
 
 
 
-	if 'documentSubtitle' in metadata:
+	if 'documentSubtitle' in metadata: # er 'documentSubtitle' i metadata så lav ny variable
 		subtitle = u''+str(metadata['documentSubtitle'])
 	else:
 		subtitle = u''+str(None)
 	
 
-	if 'documentDescription' in metadata:
+	if 'documentDescription' in metadata: # er 'documentDescription' i metadata så lav ny variable
 		description = u''+str(metadata['documentDescription'])
 	else:
 		description = u''+str(newDocument.documentDescription)
 	
 
 
-	if 'documentSubject' in metadata:
+	if 'documentSubject' in metadata: # er 'documentSubject' i metadata så lav ny variable
 		subject = u''+str(metadata['documentSubject'])
 	else:
 		subject = u''+str(newDocument.documentSubject)	
 
 
 
-	if 'documentTopic' in metadata:
+	if 'documentTopic' in metadata: # er 'documentTopic' i metadata så lav ny variable
 		topic = u''+str(metadata['documentTopic'])
 	else:
 		topic = u''+str(category)	
 
 
 
-	if 'documentEducation_level' in metadata:
+	if 'documentEducation_level' in metadata: # er 'documentEducation_level' i metadata så lav ny variable
 		education_level = u''+str(metadata['documentEducation_level'])
 	else:
 		education_level = u''
 
 
 
-
+	#opret nyt dokument objekt med al metadaten
 	addDocument = Document(g.userId, name, subtitle, description, subject, topic, education_level, fileBlob.getvalue())
-	db.session.add(addDocument)
-	db.session.commit()
+	
+	db.session.add(addDocument) #tilføj til databas 
+	db.session.commit()	#affyr sql 
 
+	#og send til dokument visnings siden
 	return redirect(url_for('viewDocument', fileId=addDocument.id, _external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
 
 
@@ -119,44 +135,51 @@ def Add_Docx_to_database(file, metadata):
 
 
 def update_document_from_dict(fileId, metadataDict, file):
+
+	'''
+
+		Updater dokument fra metadata Dict og eller fil
+
+	'''
+
 	
-	orgDocument = Document.query.filter_by(id=fileId).first()
+	orgDocument = Document.query.filter_by(id=fileId).first() # hente dokument
 
-	if int(orgDocument.user_id) == int(g.userId):
+	if int(orgDocument.user_id) == int(g.userId): #hvis brugeren er ejer af dokument
 
-		orgDocument.version = int(orgDocument.version) + 1
-		orgDocument.created = datetime.datetime.now()
+		orgDocument.version = int(orgDocument.version) + 1 #opdater version 1+1
+		orgDocument.created = datetime.datetime.now() # ny dato
 		
-		if 'documentTitle' in metadataDict:
+		if 'documentTitle' in metadataDict: # er 'documentTitle' i metadataDict så opdater dokument.'documentTitle'
 			orgDocument.name = u''+str(metadataDict['documentTitle'])
 
-		if 'documentSubtitle' in metadataDict:
+		if 'documentSubtitle' in metadataDict: # er 'documentSubtitle' i metadataDict så opdater dokument.'documentSubtitle'
 			orgDocument.subtitle = u''+str(metadataDict['documentSubtitle'])
 		
-		if 'documentDescription' in metadataDict:
+		if 'documentDescription' in metadataDict: # er 'documentDescription' i metadataDict så opdater dokument.'documentDescription'
 			orgDocument.description = u''+str(metadataDict['documentDescription'])
 
-		if 'documentSubject' in metadataDict:
+		if 'documentSubject' in metadataDict: # er 'documentSubject' i metadataDict så opdater dokument.'documentSubject'
 			orgDocument.subject = u''+str(metadataDict['documentSubject'])
 
-		if 'documentTopic' in metadataDict:
+		if 'documentTopic' in metadataDict: # er 'documentTopic' i metadataDict så opdater dokument.'documentTopic'
 			orgDocument.topic = u''+str(metadataDict['documentTopic'])
 		
-		if 'documentEducation_level' in metadataDict:
+		if 'documentEducation_level' in metadataDict: # er 'documentEducation_level' i metadataDict så opdater dokument.'documentEducation_level'
 			orgDocument.education_level = u''+str(metadataDict['documentEducation_level'])
 		
 
-		fileBlob = BytesIO(file.read())
+		fileBlob = BytesIO(file.read()) #Læs fil i hukommelse 
 		
-		if (zipfile.is_zipfile(fileBlob)):
+		if (zipfile.is_zipfile(fileBlob)): #Er fil docx ? - tilføjet pga. fejl i firefox med drag and drop
 			orgDocument.original_file = fileBlob.getvalue()
 
-		db.session.commit()
+		db.session.commit() #affyr sql 
 
 		return redirect(url_for('viewDocument', fileId=orgDocument.id, _external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
 
 	else:
-		abort(403)
+		abort(403) #ellers set "not allowed http error"
 
 
 
@@ -164,12 +187,26 @@ def update_document_from_dict(fileId, metadataDict, file):
 
 
 def create_epub_from_id(fileId):
+
+
+	'''
+
+		Opret epub fra fil id, og skrive en kopi til database som cache 
+		Eller hvis filen "produketet" allerede findes som cache og er samme version som dokumentet, så hent den.
+
+
+		retuner Epub blob og dokuments navn
+
+	'''
+
+
 	
-	orgDocument = Document.query.filter_by(id=fileId).first()
-	epub = Product.query.filter_by(document_id=orgDocument.id, type='epub').first()
+	orgDocument = Document.query.filter_by(id=fileId).first() #Orginal dokumenet
+	epub = Product.query.filter_by(document_id=orgDocument.id, type='epub').first() # Epub filen enten Object eller None
 
 
-	if epub == None:
+	if epub == None: #hvis epub er None 
+
 		author = User.query.filter_by(id=orgDocument.user_id).first()
 		authorName = author.firstname + ' ' + author.lastname
 		
@@ -190,6 +227,9 @@ def create_epub_from_id(fileId):
 		return [newEpub.createEpub(), orgDocument.name]
 
 	else:
+		#hvis version på epub'en er mindre end orginal dokumenetet's
+		#så opdater epub'en med data fra original dokumenet 
+
 		if epub.version < orgDocument.version:
 			author = User.query.filter_by(id=orgDocument.user_id).first()
 			authorName = author.firstname + ' ' + author.lastname
@@ -209,6 +249,9 @@ def create_epub_from_id(fileId):
 
 			return [newEpub.createEpub(), orgDocument.name]
 
+		#Hvis version på epub'en er den samme som orginal dokumenetet's
+		#så brug epub'ens blob
+
 		elif epub.version == orgDocument.version:
 
 			return [epub.file_blob, orgDocument.name]
@@ -220,10 +263,21 @@ def create_epub_from_id(fileId):
 
 def create_HTML_from_id(fileId):
 	
-	orgDocument = Document.query.filter_by(id=fileId).first()
-	HTML = Product.query.filter_by(document_id=orgDocument.id, type='html').first()
+	'''
 
-	if HTML == None:
+		Opret HTML fra fil id, og skrive en kopi til database som cache 
+		Eller hvis filen "produketet" allerede findes som cache og er samme version som dokumentet, så hent den.
+
+
+		retuner HTML blob og dokuments navn
+
+	'''
+
+	orgDocument = Document.query.filter_by(id=fileId).first() #Orginal dokumenet
+	HTML = Product.query.filter_by(document_id=orgDocument.id, type='html').first() # HTML filen enten Object eller None
+
+	if HTML == None: #hvis HTML er None 
+
 		author = User.query.filter_by(id=orgDocument.user_id).first()
 		authorName = author.firstname + ' ' + author.lastname
 
@@ -241,6 +295,9 @@ def create_HTML_from_id(fileId):
 		return [HTML_text, orgDocument.name]
 
 	else:
+		#hvis version på HTML'en er mindre end orginal dokumenetet's
+		#så opdater HTML'en med data fra original dokumenet 
+
 		if HTML.version < orgDocument.version:
 
 			author = User.query.filter_by(id=orgDocument.user_id).first()
@@ -259,6 +316,8 @@ def create_HTML_from_id(fileId):
 
 			return [HTML_text, orgDocument.name]
 
+		#Hvis version på HTML'en er den samme som orginal dokumenetet's
+		#så brug HTML'ens blob
 
 		elif HTML.version == orgDocument.version:
 
@@ -271,13 +330,26 @@ def create_HTML_from_id(fileId):
 
 
 def creat_Docx_from_id(fileId):
+
+	'''
+
+		Opret DOCX fra fil id, og skrive en kopi til database som cache 
+		Eller hvis filen "produketet" allerede findes som cache og er samme version som dokumentet, så hent den.
+
+
+		retuner DOCX blob og dokuments navn
+
+	'''
+
 	
-	orgDocument = Document.query.filter_by(id=fileId).first()
-	docx = Product.query.filter_by(document_id=orgDocument.id, type='docx').first()
+	orgDocument = Document.query.filter_by(id=fileId).first()  #Orginal dokumenet
+	docx = Product.query.filter_by(document_id=orgDocument.id, type='docx').first() # DOCX filen enten Object eller None
 
 
 
-	if docx == None:
+	if docx == None: #hvis epub er None 
+		
+
 		
 		fileBlob = orgDocument.original_file
 
@@ -289,6 +361,9 @@ def creat_Docx_from_id(fileId):
 
 		return [fileBlob, orgDocument.name]
 
+
+	#hvis version på DOCX'en er mindre end orginal dokumenetet's
+	#så opdater DOCX'en med data fra original dokumenet 
 
 	elif docx.version < orgDocument:
 
@@ -302,6 +377,8 @@ def creat_Docx_from_id(fileId):
 
 		return [fileBlob, orgDocument.name]
 
+	#Hvis version på DOCX'en er den samme som orginal dokumenetet's
+	#så brug DOCX'ens blob
 
 	elif docx.version == orgDocument.version:
 
@@ -318,6 +395,12 @@ def creat_Docx_from_id(fileId):
 
 
 def update_or_create_Statistic(productId, download_or_display):
+
+	''' 
+		Opdater eller lav ny stastik
+
+	'''
+
 
 	statisticNode = Statistic.query.filter_by(document_id=productId).first()
 

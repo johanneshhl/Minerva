@@ -7,11 +7,18 @@ from application import Flask, app, request, redirect, escape, session, url_for,
 
 def login_required(f):
     @wraps(f)
+
+    '''
+        Hvis brugeren er ikke logget ind, 
+        så videre send brugen til login siden og
+        tilføj et parameter med den efterspurgte side.
+    '''
 	
     def decorated_function(*args, **kwargs):
         
-        if g.userIsloggedIn == False:
+        if g.userIsloggedIn == False: #hvis brugren ikke er logget ind
 
+            #vidre send til LogUserIn funktionen, med HTTPS
             return redirect(url_for('logUserIn', next=replaceHTTP(request.url), _external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
 
         return f(*args, **kwargs)
@@ -21,10 +28,15 @@ def login_required(f):
 
 def allready_logged_in(f):
     @wraps(f)
+
+    '''
+        Er siden allerede logget ind så send brugen til forsiden
+    
+    '''
 	
     def decorated_function(*args, **kwargs):
         
-        if g.userIsloggedIn == True:
+        if g.userIsloggedIn == True: #hvis brugren er logget ind
             return redirect(url_for('index', _external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
 
         return f(*args, **kwargs)
@@ -33,18 +45,7 @@ def allready_logged_in(f):
 
 
 
-
-
-
-
-#needle in haystack
-def conatins(input, string):
-    if string in input:
-        return True
-    else:
-        return False
-
-
+#gammle kode, der omskrev url'en til https
 def replaceHTTP(url):   
     if conatins(url, app.config['PREFERRED_URL_SCHEME']):
         return url

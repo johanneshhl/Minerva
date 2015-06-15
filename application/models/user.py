@@ -28,14 +28,22 @@ def render_login_user(message=None):
 
 def createUserFromDict(returnURL, userDict):
 
-	utf_Test = (u''+userDict['utf8']) == u'✓'
- 	email_unic = (User.query.filter(User.email.ilike(userDict['email'])).first() == None)
- 	password_long = (len(userDict['password']) >= 8)
+	'''
+		Opret bruger fra Dict
+		eller returer fejl
 
-	if (utf_Test and email_unic and password_long):
+
+	'''
+ 
+	utf_Test = (u''+userDict['utf8']) == u'✓' # er input utf-8 - bruges ikke endnu...
+
+ 	email_unic = (User.query.filter(User.email.ilike(userDict['email'])).first() == None) #Er email'en unik
+ 	
+ 	password_long = (len(userDict['password']) >= 8) # Er koden 8 eller over
+
+	if (utf_Test and email_unic and password_long): #test af email_unic og kodeord 
 	
-		#opret User opjectet med userDict og hashed kodeord
-		newUser = User(userDict['firstname'], userDict['lastname'], userDict['email'], userDict['password'])
+		newUser = User(userDict['firstname'], userDict['lastname'], userDict['email'], userDict['password']) #opret bruger
 		
 		#indsæt User Objectet
 		db.session.add(newUser)
@@ -54,11 +62,18 @@ def createUserFromDict(returnURL, userDict):
 
 def loginUserFromDict(returnURL, userDict):
 
-	user = User.query.filter(User.email.ilike(userDict['email'])).first()
+	'''
+		Log brueren ind fra Dict
 
-	if user and bcrypt.check_password_hash(user.password, userDict['password']):
+	'''
+
+	user = User.query.filter(User.email.ilike(userDict['email'])).first() #find brugern hvor email er den samme som input email
+
+	if user and bcrypt.check_password_hash(user.password, userDict['password']): #Er bruger ikke None &	passer brugern's hashed det den samme som input email
+		#Log brugen ind
 		loginUser(user)
 
+		#send til "returnURL" normalt Forsiden
 		return redirect(returnURL)
 
 	else:
@@ -69,13 +84,22 @@ def loginUserFromDict(returnURL, userDict):
 
 def loginUser(userObj):
 
+	'''
+		login bruger fra bruger Objekt
+
+	'''
+
 	userId = userObj.id
 	userEmail = userObj.email
 	userFirstname = userObj.firstname
 	userLastName = userObj.lastname
 
+	#opdater sidst logget in
 	User.query.filter_by(email=userEmail).first().lastLogin = datetime.datetime.now()
 	db.session.commit()
+
+
+	#lav ny cryptedet cookie, aka. Flask.session
 
 	session['email'] = userEmail
 	session['userID'] = userId
@@ -84,6 +108,7 @@ def loginUser(userObj):
 	
 	session['LoggedIn'] = True
 
+	#Husk mig - altid
 	session.permanent = True
 
 

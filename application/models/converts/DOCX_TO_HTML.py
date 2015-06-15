@@ -4,10 +4,10 @@
 '''
 		Title:	Open Office XML Converter
 	
-  Description:	Convert OOXML to Data-HTML
+  Description:	Convert OOXML to Minerva-HTML
 	
 		Input:	Docx/Zip
-	   Output:	Data-HTML
+	   Output:	Minerva-HTML
 
 		 Date:	18. Maj 2015
 
@@ -169,7 +169,7 @@ class DATA_HTML():
 	def getContent(self):
 
 		'''
-			Hent Dokuments indhold og retuner Thoth-HTML
+			Hent Dokuments indhold og retuner Minerva-HTML
 			Prøver Metadata filen, 
 			ellers retuner None
 
@@ -202,7 +202,7 @@ class DATA_HTML():
 		
 		'''
 			Konvater paragraph 
-			fra OOXML til Thoth-HTML
+			fra OOXML til Minerva-HTML
 		'''
 
 
@@ -306,6 +306,12 @@ class DATA_HTML():
 
 
 	def createHyperlink(self, run):
+
+		'''
+			Lav hyperlink fra run
+
+		'''
+
 		nodeName = 'a'
 		rID = run.parent['r:id']
 		hyperlink = self.RelationshipsXML.find(id=rID)
@@ -316,6 +322,12 @@ class DATA_HTML():
 
 
 	def textConversion(self, run):
+
+		'''
+			lav tekst fra run 
+
+		'''
+
 		text = u''
 		for textNode in run.children:
 			if textNode.name == 'w:br':
@@ -332,6 +344,12 @@ class DATA_HTML():
 
 
 	def imageConversion(self, node):
+
+
+		'''
+			Lav IMG med base64 string 
+
+		'''
 
 		imageNode = u''
 
@@ -354,7 +372,7 @@ class DATA_HTML():
 
 		'''
 			Konvater liste 
-			fra OOXML til Thoth-HTML
+			fra OOXML til Minerva-HTML
 
 			Bullets og Numringer virker
 
@@ -448,7 +466,7 @@ class DATA_HTML():
 
 		'''
 			Konvater rækker "w:td"
-			fra OOXML til Thoth-HTML
+			fra OOXML til Minerva-HTML
 		'''
 
 		rowNodes = u''
@@ -466,7 +484,7 @@ class DATA_HTML():
 
 		'''
 			Konvater koloner "w:tc"
-			fra OOXML til Thoth-HTML
+			fra OOXML til Minerva-HTML
 		'''
 		
 

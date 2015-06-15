@@ -7,6 +7,13 @@ from application import app, request, redirect, escape, session, url_for, db, bc
 @app.route('/')
 def index():
 
+
+	'''
+		Hvis brugeren er logget ind, hvis forside
+		Ellers hvis "spalshpage", hvor man kan oprette bruger og logge ind
+
+	'''
+
 	if g.userIsloggedIn == True:
 		return render_template('pages/forside.jinja')
 	else: 

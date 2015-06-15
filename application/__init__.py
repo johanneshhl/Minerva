@@ -23,7 +23,6 @@ app.jinja_env.lstrip_blocks = True
 
 
 # Find filer der skal minifierser
-#js = Bundle('js/jquery.min.js', 'js/bifrost.js', 'js/bootstrap.min.js', 'js/cookieAlert.js', 'js/main.js', filters='jsmin', output='gen/packed.js')
 js = Bundle('assets/jquery.min.js','assets/bifrost.js', 'assets/main.js', filters='jsmin', output='gen/packed.js')
 css = Bundle('assets/main.css',  filters='cssmin', output='gen/packed.css')
 

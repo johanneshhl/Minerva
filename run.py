@@ -2,6 +2,12 @@
  # -*- coding: utf-8 -*-
 from application import app
 
+
+'''
+	Start program på port 33507 - Heroku's standart port
+
+'''
+
 if __name__ == '__main__':
     import os  
     port = int(os.environ.get('PORT', 33507)) 

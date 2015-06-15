@@ -11,11 +11,14 @@ import application.database
 def createUser():
 
 	'''
+		Hvis allrede loggedet ind send til forsiden (/)
 
-		create user site and api
+		(GET)	Hvis opret bruger side
+		(POST)	Lave ny bruger fra form
 
 
 	'''
+
 	if 'next' in request.args:
 		returnURL = request.args['next']
 	else:
@@ -59,11 +62,14 @@ def checkuser():
 def logUserIn():
 
 	'''
+		Log brugeren ind
 
-		create user site and api
+		(GET)	Hvis Login bruger side
+		(POST)	Login fra form
 
 
 	'''
+
 	if 'next' in request.args:
 		returnURL = request.args['next']
 	else:
@@ -79,9 +85,25 @@ def logUserIn():
 
 
 
+@app.route('/login', methods=['GET'])
+def login():
+	'''
+		Gammle function skal slettes
+	'''
 
-@app.route('/session/logout', methods=['GET'])
-def logUserOut():
+	return redirect(url_for('logUserIn'))
+
+
+
+@app.route('/logoff', methods=['GET'])
+@login_required
+def logoff():
+
+	'''
+		Log brugeren af og send til forsiden
+
+	'''
+
 
 	session.clear()
 	flash('Logget af', 'info')
@@ -89,5 +111,3 @@ def logUserOut():
 	return redirect(url_for('index', _external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
 
 
-
-	

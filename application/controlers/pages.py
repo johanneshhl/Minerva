@@ -11,6 +11,13 @@ from application.database.database import Document, User, Product, Statistic
 @app.route('/create_document', methods=['GET'])
 @login_required
 def createDocument():
+
+	'''
+		Opret dokument side
+		kræver login
+
+	'''
+
 	return render_template('pages/createDocument.jinja')
 
 
@@ -18,6 +25,13 @@ def createDocument():
 
 @app.route('/view_document/<int:fileId>', methods=['GET'])
 def viewDocument(fileId):
+
+	'''
+		Vis dokument,
+		hvis brugern er logget ind vis dokumentet
+		ellers vis den offenlige dokument side
+
+	'''
 
 	if g.userIsloggedIn == True:
 
@@ -37,6 +51,15 @@ def viewDocument(fileId):
 @login_required
 def viewDocuments():
 
+	'''
+
+		Vis alle dokumenter lavet af "current" user 
+		kræver login
+
+
+	'''
+
+
 	return render_template('pages/displayDocuments.jinja', theDocuments=Document.query.filter_by(user_id=g.userId).order_by(Document.created.desc()))
 
 
@@ -45,6 +68,13 @@ def viewDocuments():
 
 @app.route('/public_view_documents/<int:fileId>', methods=['GET'])
 def publicViewDocument(fileId):
+
+	'''
+
+		Vis den offenlige dokument side
+
+	'''
+
 
 	document = Document.query.filter_by(id=fileId).first()
 	user = User.query.filter_by(id=document.user_id).first()
@@ -60,21 +90,6 @@ def publicViewDocument(fileId):
 
 
 
-
-
-
-
-
-@app.route('/login', methods=['GET'])
-def login():
-	return redirect(url_for('logUserIn'))
-
-
-
-@app.route('/logoff', methods=['GET'])
-@login_required
-def logoff():
-	return redirect(url_for('logUserOut'))
 
 
 

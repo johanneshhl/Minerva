@@ -24,13 +24,15 @@
 	 
 		var dt = e.target.files||e.dataTransfer;
 		var files = dt.files;
-		var blob = files[0]; // See step 1 above
-		console.log(blob.type);
+		var blob = files[0]; 
+
+		var errorMessage = "Drag & Drop ➔ Input['type*='file'] er ikke supported på "
+
 		if ((navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0)) {
-			alert('Internet explore')
+			alert(errorMessage + 'Internet explore')
 
 		}else if ((navigator.userAgent.indexOf('Firefox/')) !== -1) {
-			alert('Firefox')
+			alert(errorMessage + 'Firefox')
 		}
 		else{
 	  		document.getElementById('selectedFile').files = files

@@ -26,9 +26,13 @@ from bs4 import BeautifulSoup
 
 
 class HTML_TO_EPUB(object):
-	"""docstring for HTML_TO_EPUB"""
 
 	def __init__(self, DATA_HTML, METADATA):
+
+		'''
+			Lav Epub fra data-html
+
+		'''
 
 		self.DATA_HTML = BeautifulSoup(DATA_HTML, from_encoding="utf-8")
 		self.UUDI = '{0}{1}'.format('urn:uuid:',str(uuid.uuid4()))
@@ -45,6 +49,14 @@ class HTML_TO_EPUB(object):
 		self.documentLang = METADATA['lang']
 
 	def getChapters(self):
+
+		'''	
+			Hent kapitler 
+			fra DATA_HTML
+
+		'''
+
+
 		html = []
 		if self.DATA_HTML.find_all("h1") == []:
 			node = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>{0}</title><link rel="stylesheet" type="text/css" href="css/style.css"></link></head><body>{1}</body></html>'.format('No title',unicode(self.DATA_HTML))
@@ -77,6 +89,13 @@ class HTML_TO_EPUB(object):
 
 
 	def createOpf(self):
+
+		'''
+			lav content.opf 
+			Epub metadata fil
+
+
+		'''
 
 		title = "<dc:title>{}</dc:title>".format(self.documentTitle)
 
@@ -127,6 +146,12 @@ class HTML_TO_EPUB(object):
 
 	def createTOC(self):
 
+		'''
+			Lav toc.ncx 
+
+
+		'''
+
 
 		head = u'<head>'
 		head += '<meta content="{}" name="dtb:uid"/>'.format(self.UUDI)
@@ -149,6 +174,13 @@ class HTML_TO_EPUB(object):
 
 
 	def createEpub(self):
+
+		'''
+			Lav epub i hukommelse
+
+		'''
+
+
 		chapters = self.getChapters()
 		zipInMemmoryArcive = StringIO.StringIO()
 		with zipfile.ZipFile(zipInMemmoryArcive, "w") as  myzip:
@@ -187,6 +219,12 @@ class HTML_TO_EPUB(object):
 
 
 	def createStyle(self):
+
+		'''
+			Et hurtigt fix til at lave en css fil i epub'en 
+			Baseret på typeplate 
+
+		'''
 
 		cssFileBase64 = '''
 			@charset "UTF-8";
