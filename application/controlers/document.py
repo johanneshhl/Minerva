@@ -38,7 +38,7 @@ def get_all_documents_from_user(userId):
 
 	'''
 
-	documents = Document.query.filter_by(user_id=userId).order_by(Document.created.desc().limit(20)
+	documents = Document.query.filter_by(user_id=userId).limit(20).order_by(Document.created.desc())
 	user = User.query.filter_by(id=userId).first()
 	return render_template('pages/displayDocumentsNotLoggedIn.jinja', theDocuments=documents, theUser=user)
 
