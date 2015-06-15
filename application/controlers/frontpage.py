@@ -13,7 +13,6 @@ def index():
 		Ellers hvis "spalshpage", hvor man kan oprette bruger og logge ind
 
 	'''
-
 	if g.userIsloggedIn == True:
 		return render_template('pages/forside.jinja')
 	else: 

@@ -43,7 +43,7 @@
 	<div class="right not_mobile serach_input">
 		<div class="btn-groupe">
 			<form action="{{ url_for('searchWithParam', _external=True, _scheme=g.PREFERRED_URL_SCHEME) }}" method="get">
-				<input type="search" name="search_input" placeholder="Søg"/><button class="green"><span type="submit" class="icon-search"></span></button>
+				<input type="search" name="search_input" placeholder="{% if searchValue != '' %}{{ searchValue }}{% else %}Søg{% endif %}"/><button class="green"><span type="submit" class="icon-search"></span></button>
 			</form>
 		</div>
 	</div>

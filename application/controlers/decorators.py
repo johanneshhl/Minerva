@@ -41,11 +41,3 @@ def allready_logged_in(f):
 
 
 
-
-#gammle kode, der omskrev url'en til https
-def replaceHTTP(url):   
-    if conatins(url, app.config['PREFERRED_URL_SCHEME']):
-        return url
-    else:
-        newUrl = url.replace('http', app.config['PREFERRED_URL_SCHEME'])
-        return newUrl

@@ -25,15 +25,26 @@ def searchWithParam():
 	'''
 	
 	requestString = request.args.get('search_input')
+	parameters = requestString.split(" ",1)
+	orParam = ''
 
-	SearchResult = Document.query.filter(db.or_(
-		Document.name.contains(requestString),
-		Document.subtitle.contains(requestString),
-		Document.description.contains(requestString),
-		Document.subject.contains(requestString),
-		Document.topic.contains(requestString),
-		Document.education_level.contains(requestString)
-	)).limit(20)
+
+ 	search = ''
+	for i in range(len(parameters)):
+		if i == 0:
+			SearchResult = Document.query.filter(db.or_(Document.name.ilike('%'+parameters[i]+'%'),
+									Document.subtitle.ilike('%'+parameters[i]+'%'),
+									Document.description.ilike('%'+parameters[i]+'%'),
+									Document.subject.ilike('%'+parameters[i]+'%'),
+									Document.topic.ilike('%'+parameters[i]+'%'),
+									Document.education_level.ilike('%'+parameters[i]+'%')))
+		else:
+			SearchResult.from_self().filter(db.or_(Document.name.ilike('%'+parameters[i]+'%'),
+									Document.subtitle.ilike('%'+parameters[i]+'%'),
+									Document.description.ilike('%'+parameters[i]+'%'),
+									Document.subject.ilike('%'+parameters[i]+'%'),
+									Document.topic.ilike('%'+parameters[i]+'%'),
+									Document.education_level.ilike('%'+parameters[i]+'%'))).limit(20)
 
 
 	return render_template('pages/search.jinja', param=requestString, theDocuments=SearchResult, amount=SearchResult.count())
