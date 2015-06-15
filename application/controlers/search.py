@@ -37,7 +37,7 @@ def searchWithParam():
 									Document.description.ilike('%'+parameters[i]+'%'),
 									Document.subject.ilike('%'+parameters[i]+'%'),
 									Document.topic.ilike('%'+parameters[i]+'%'),
-									Document.education_level.ilike('%'+parameters[i]+'%')))
+									Document.education_level.ilike('%'+parameters[i]+'%'))).order_by(Document.created.desc())
 		else:
 			SearchResult.from_self().filter(db.or_(Document.name.ilike('%'+parameters[i]+'%'),
 									Document.subtitle.ilike('%'+parameters[i]+'%'),
@@ -45,7 +45,6 @@ def searchWithParam():
 									Document.subject.ilike('%'+parameters[i]+'%'),
 									Document.topic.ilike('%'+parameters[i]+'%'),
 									Document.education_level.ilike('%'+parameters[i]+'%'))).limit(20)
-
 
 	return render_template('pages/search.jinja', param=requestString, theDocuments=SearchResult, amount=SearchResult.count())
 
