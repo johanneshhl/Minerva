@@ -14,6 +14,7 @@ import zipfile
 
 from application import app, request, redirect, escape, session, url_for, db, bcrypt, render_template, g, flash, jsonify
 from application.controlers.document import *
+import urllib
 from application.database.database import Document, User, Product, Statistic
 
 

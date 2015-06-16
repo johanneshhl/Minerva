@@ -38,13 +38,13 @@ class HTML_TO_EPUB(object):
 		self.UUDI = '{0}{1}'.format('urn:uuid:',str(uuid.uuid4()))
 
 		if METADATA['title'] != None:
-			self.documentTitle = METADATA['title']
+			self.documentTitle = urllib.quote(METADATA['title'])
 		else:
 			self.documentTitle = 'None'
-		self.documentCreator = METADATA['creator']
-		self.documentDescription = METADATA['description']
-		self.documentSubject = METADATA['subject']
-		self.documentCategory = METADATA['category']
+		self.documentCreator = urllib.quote(METADATA['creator'])
+		self.documentDescription = urllib.quote(METADATA['description'])
+		self.documentSubject = urllib.quote(METADATA['subject'])
+		self.documentCategory = urllib.quote(METADATA['category'])
 	
 		self.documentLang = METADATA['lang']
 
