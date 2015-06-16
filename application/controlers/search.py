@@ -39,7 +39,7 @@ def searchWithParam():
 									Document.topic.ilike('%'+parameters[i]+'%'),
 									Document.education_level.ilike('%'+parameters[i]+'%'))).order_by(Document.created.desc())
 		else:
-			SearchResult.from_self().filter(db.or_(Document.name.ilike('%'+parameters[i]+'%'),
+			SearchResult = SearchResult.from_self().filter(db.or_(Document.name.ilike('%'+parameters[i]+'%'),
 									Document.subtitle.ilike('%'+parameters[i]+'%'),
 									Document.description.ilike('%'+parameters[i]+'%'),
 									Document.subject.ilike('%'+parameters[i]+'%'),
