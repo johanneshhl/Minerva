@@ -17,8 +17,6 @@ import zipfile
 import StringIO
 import uuid
 import time
-import urllib
-
 #from PIL import Image
 #from PIL import ImageFont, ImageDraw
 import base64
@@ -40,13 +38,13 @@ class HTML_TO_EPUB(object):
 		self.UUDI = '{0}{1}'.format('urn:uuid:',str(uuid.uuid4()))
 
 		if METADATA['title'] != None:
-			self.documentTitle = urllib.quote(METADATA['title'])
+			self.documentTitle = cgi.escape(METADATA['title'])
 		else:
 			self.documentTitle = 'None'
-		self.documentCreator = urllib.quote(METADATA['creator'])
-		self.documentDescription = urllib.quote(METADATA['description'])
-		self.documentSubject = urllib.quote(METADATA['subject'])
-		self.documentCategory = urllib.quote(METADATA['category'])
+		self.documentCreator = cgi.escape(METADATA['creator'])
+		self.documentDescription = cgi.escape(METADATA['description'])
+		self.documentSubject = cgi.escape(METADATA['subject'])
+		self.documentCategory = cgi.escape(METADATA['category'])
 	
 		self.documentLang = METADATA['lang']
 
