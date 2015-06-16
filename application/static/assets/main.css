@@ -1312,6 +1312,8 @@ div.container {
                 clear: left; } }
           .base-component section.body ul#document-displayer.list-view .document:hover {
             background: whitesmoke; }
+          .base-component section.body ul#document-displayer.list-view .document span {
+            word-break: break-word; }
           .base-component section.body ul#document-displayer.list-view .document a {
             display: table;
             width: 100%;
