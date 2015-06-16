@@ -41,15 +41,9 @@ def get_docx_info(file):
 
 	newDocument = DATA_HTML(fileBlob, filename) # nyt objekt fra filblob og filnavn
 
-	category = '' #ny variable 
-	
-	for i, item in enumerate(newDocument.documentCategory): #Loop over emner og lav komma string
-		if i == (len(newDocument.documentCategory)-1):
-			category += item
-		else: 
-			category += item + ','
 
-	return jsonify(documnetName=str(newDocument.documentTitle), documentSubtitle=str(None), documentDescription=str(newDocument.documentDescription), documentSubject=str(newDocument.documentSubject), documentCategory=str(category), documentEducation_level='')
+
+	return jsonify(documnetName=str(newDocument.documentTitle), documentSubtitle=str(None), documentDescription=str(newDocument.documentDescription), documentSubject=str(newDocument.documentSubject), documentCategory=str(newDocument.documentCategory), documentEducation_level='')
 		
 
 
@@ -71,13 +65,7 @@ def Add_Docx_to_database(file, metadata):
 
 	newDocument = DATA_HTML(fileBlob, filename) # nyt objekt fra filblob og filnavn
 
-	category = ''
-	for i, item in enumerate(newDocument.documentCategory): #Loop over emner og lav komma string
-		if i == (len(newDocument.documentCategory)-1):
-			category += item
-		else: 
-			category += item + ','
-
+	
 
 	if 'documentTitle' in metadata:  # er 'documentTitle' i metadata så lav ny variable
 		name = u''+str(metadata['documentTitle'])
@@ -109,7 +97,7 @@ def Add_Docx_to_database(file, metadata):
 	if 'documentTopic' in metadata: # er 'documentTopic' i metadata så lav ny variable
 		topic = u''+str(metadata['documentTopic'])
 	else:
-		topic = u''+str(category)	
+		topic = u''+str(newDocument.documentCategory)	
 
 
 

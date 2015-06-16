@@ -16,9 +16,7 @@
 	{% set splashpage = splashpage %}
 	{% set Menu = Menu %}
 	{% set show_header = show_header %}
-	{% set login = login %}
-
-
+	{% set searchValue = searchValue %}
 	<body>
 	{% if show_navigation == True %}
 		{% include "blocks/navigation.jinja" %}
@@ -31,7 +29,7 @@
 	<div id="search_bar" class="search-bar mobile">
 		<div class="btn-groupe">
 			<form action="{{ url_for('searchWithParam', _external=True, _scheme=g.PREFERRED_URL_SCHEME) }}" method="get">
-				<input type="search" name="search_input" placeholder="{% if searchValue != none %}{{ searchValue }}{% else %}Søg{% endif %}"/><button class="green"><span type="submit" class="icon-search"></span></button>
+				<input type="search" name="search_input" placeholder="{% if searchValue|length >= 1 %}{{ searchValue }}{% else %}Søg{% endif %}"/><button class="green"><span type="submit" class="icon-search"></span></button>
 			</form>
 		</div>
 	</div>

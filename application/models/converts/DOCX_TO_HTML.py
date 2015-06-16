@@ -152,12 +152,12 @@ class DATA_HTML():
 
 		'''
 
-		documentCategory = []
 
 		if self.MetaXML.find('cp:category') != None:
-			for Category in self.MetaXML.find('cp:category').string.split(',',1):
-				documentCategory.append(Category)
-
+			documentCategory = self.MetaXML.find('cp:category').string
+		else:
+			documentCategory = None
+			
 		return documentCategory
 
 
@@ -234,7 +234,7 @@ class DATA_HTML():
 
 		paragraphNode = "<{0}>{1}</{0}>".format(nodeName, self.runConversion(paragraph))
 
-		if len(self.runConversion(paragraph)) != 0:
+		if len(self.runConversion(paragraph)) > 1:
 			return paragraphNode
 		else: 
 			return ''
