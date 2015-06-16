@@ -17,6 +17,8 @@ import zipfile
 import StringIO
 import uuid
 import time
+import urllib
+
 #from PIL import Image
 #from PIL import ImageFont, ImageDraw
 import base64
