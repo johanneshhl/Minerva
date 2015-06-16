@@ -23,7 +23,7 @@
 
 	{% if splashpage == true %}
 		<div class="right icon">
-			<a href="{{ url_for('login', _external=True, _scheme=g.PREFERRED_URL_SCHEME) }}">
+			<a href="{{ url_for('logUserIn', _external=True, _scheme=g.PREFERRED_URL_SCHEME) }}">
 				<h3>Login</h3>
 				<span class="icon-lock logo"></span>
 			</a>

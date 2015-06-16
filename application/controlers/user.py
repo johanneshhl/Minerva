@@ -91,7 +91,7 @@ def login():
 		Gammle function skal slettes
 	'''
 
-	return redirect(url_for('logUserIn'))
+	return redirect(url_for('logUserIn', _external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
 
 
 
