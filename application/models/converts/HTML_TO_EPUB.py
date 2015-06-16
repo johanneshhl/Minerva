@@ -17,6 +17,7 @@ import zipfile
 import StringIO
 import uuid
 import time
+import cgi
 #from PIL import Image
 #from PIL import ImageFont, ImageDraw
 import base64
