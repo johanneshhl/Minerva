@@ -2176,6 +2176,12 @@ select {
   .document_website section.body {
     padding: 2.5em; }
 
+.hidden_in_wide {
+  display: inline; }
+  @media screen and (min-width: 1401px) {
+    .hidden_in_wide {
+      display: none; } }
+
 .left {
   float: left;
   margin-right: 1.5em; }
