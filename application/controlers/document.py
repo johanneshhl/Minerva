@@ -60,18 +60,18 @@ def uploadDocument():
 
 
 
-@app.route('/session/update_document/<int:fileId>', methods=['GET', 'POST'])
+@app.route('/session/update_document/<int:fileId>', methods=['GET', 'PUT'])
 @login_required
 def update_document(fileId):
 
 	'''	
 		(GET) 	Vis Opdaterings side, hvis nuværedene bruger ejer dokumentet  
-		(POST)	Updater dokument fra input 
+		(PUT)	Updater dokument fra input 
 
 	'''
 
 
-	if request.method == 'POST':
+	if request.method == 'PUT':
 		
 		return update_document_from_dict(fileId, request.form, request.files['file'])
 
