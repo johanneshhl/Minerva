@@ -330,7 +330,7 @@ class DATA_HTML():
 			if textNode.name == 'w:br':
 				text += '<br />'
 			elif textNode.name =='w:tab':
-				text += '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;'
+				text += '&emsp;&emsp;&emsp;&emsp;'
 			elif textNode.name == 'w:t':
 				text += textNode.string
 			else:
