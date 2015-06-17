@@ -290,12 +290,9 @@ class DATA_HTML():
 							nodeName = 'span'
 							colorName = "%s" % Color(u'#'+inlineBlock['w:val'])
 							
-							if '#' in colorName:
-								pass
-							else:
-								openingNode = '<{0} style="color:{2}">{1}'.format(nodeName, openingNode, colorName)
-								closeingNode = "{1}</{0}>".format(nodeName, closeingNode)
-								
+							openingNode = '<{0} style="color:{2}">{1}'.format(nodeName, openingNode, colorName)
+							closeingNode = "{1}</{0}>".format(nodeName, closeingNode)
+							
 							
 
 			runs += "{0}{1}{2}".format(openingNode, textNode, closeingNode)
