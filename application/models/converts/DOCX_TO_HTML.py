@@ -15,6 +15,7 @@
 import zipfile
 import base64
 from application import app, request, redirect, escape, session, url_for, db, bcrypt, render_template, g, flash
+import cgi
 
 from bs4 import BeautifulSoup
 from colour import Color
@@ -330,9 +331,9 @@ class DATA_HTML():
 			if textNode.name == 'w:br':
 				text += '<br />'
 			elif textNode.name =='w:tab':
-				text += '&emsp;&emsp;&emsp;&emsp;'
+				text += '&nbsp;&nbsp;&nbsp;&nbsp;'
 			elif textNode.name == 'w:t':
-				text += textNode.string
+				text += cgi.escape(textNode.string)
 			else:
 				text = text
 		return text

@@ -1990,6 +1990,7 @@ select {
   .document_website html {
     font: normal 100%/1.65 serif; }
   .document_website .body {
+    width: 100%;
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     -ms-hyphens: auto;
@@ -2146,11 +2147,13 @@ select {
     background: none !important; }
   .document_website table {
     border-collapse: collapse;
+    overflow: scroll;
     font-size: 1em;
     line-height: 1.5em;
     margin-top: 1.5em;
     margin-bottom: 1.5em;
     width: 100%;
+    max-width: 100%;
     display: table;
     text-align: left;
     margin-top: 3em; }
@@ -2174,7 +2177,16 @@ select {
   .document_website ol, .document_website ul {
     margin-left: 1.5em; }
   .document_website section.body {
-    padding: 2.5em; }
+    padding: 0.75em; }
+    @media screen and (min-width: 650px) and (max-width: 1200px) {
+      .document_website section.body {
+        padding: 1em; } }
+    @media screen and (min-width: 1201px) and (max-width: 1400px) {
+      .document_website section.body {
+        padding: 1.5em; } }
+    @media screen and (min-width: 1401px) {
+      .document_website section.body {
+        padding: 1.5em; } }
 
 .hidden_in_wide {
   display: inline; }
