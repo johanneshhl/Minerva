@@ -234,11 +234,11 @@ class DATA_HTML():
 
 
 		paragraphNode = "<{0}>{1}</{0}>".format(nodeName, self.runConversion(paragraph))
-
-		if len(self.runConversion(paragraph)) > 1:
-			return paragraphNode
-		else: 
-			return ''
+		return paragraphNode
+		#if len(self.runConversion(paragraph)) > 1:
+		#	return paragraphNode
+		#else: 
+		#	return ''
 
 
 
